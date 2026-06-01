@@ -16,3 +16,11 @@ For detailed information on specific areas of the project, refer to the followin
 - **UI Framework**: Jetpack Compose
 - **Design Philosophy**: Utility-first, High-contrast Dark Mode and Light Mode.
 - **Language**: Kotlin
+
+## Execution History
+The following setup and automation scripts have been executed:
+
+- **`scripts/labels.sh`**: Created GitHub labels for phases, modules, types, priorities, and status.
+- **`scripts/milestones.sh`**: Created GitHub milestones for all 5 development phases.
+- **`scripts/issues.sh`**: Created initial 30 issues based on the development roadmap.
+- **`scripts/assign_milestones.sh`**: Assigned all created issues to their respective milestones.
