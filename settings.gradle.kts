@@ -25,3 +25,22 @@ dependencyResolutionManagement {
 
 rootProject.name = "Ma3 routes"
 include(":app")
+
+// Features
+include(":features:routes:list")
+include(":features:routes:details")
+include(":features:stages:list")
+include(":features:stages:navigation")
+include(":features:profile")
+include(":features:preferences")
+include(":features:authentication")
+
+// Datasources
+include(":datasources:remote")
+include(":datasources:local")
+
+// Core
+include(":core:ui")
+include(":core:sync")
+include(":core:domain")
+include(":core:analytics")

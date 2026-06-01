@@ -1,0 +1,11 @@
+plugins {
+    alias(libs.plugins.ma3.android.library)
+}
+
+android {
+    namespace = "ke.don.ma3routes.core.ui"
+}
+
+dependencies {
+    implementation(project(":core:domain"))
+}

@@ -32,7 +32,7 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+
 ma3-android-library = { id = "ma3.android.library" }
 ma3-android-application = { id = "ma3.android.application" }
-
-
+ma3-android-feature = { id = "ma3.android.feature" }
