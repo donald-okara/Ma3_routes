@@ -57,10 +57,10 @@ This roadmap outlines the phased development of the Ma3routes application, focus
 - **4.1 Navigation Feature**
     - `Navigation View`: Real-time tracking of the user's position relative to stages.
     - Implement Geofencing for "Next Stage" alerts.
-- **4.2 Crowdsourced Corrections**
+- **4.2 Crowdsourced Corrections** _*Defer_
     - Implement the `Corrections` module to allow users to report data inaccuracies.
     - UI for submitting new stages or route variants.
-- **4.3 Transit Blue Integration**
+- **4.3 Transit Blue Integration** _*Defer_
     - Visual differentiation for walking paths vs. vehicle movement in the UI.
 
 ---
