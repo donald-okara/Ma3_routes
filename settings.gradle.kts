@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -24,4 +25,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Ma3 routes"
 include(":app")
- 
