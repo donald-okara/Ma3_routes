@@ -14,18 +14,24 @@ graph TD
         app[":app"]
     end
 
+    subgraph Sync
+        sync[":sync"]
+    end
+
     subgraph Features
-        auth[":features:authentication"]
-        prefs[":features:preferences"]
-        profile[":features:profile"]
+        subgraph "Common"
+            auth[":features:authentication"]
+            prefs[":features:preferences"]
+            profile[":features:profile"]
+        end
         
-        subgraph Routes
+        subgraph "Routes"
             r_details[":features:routes:details"]
             r_list[":features:routes:list"]
             r_data[":features:routes:data"]
         end
         
-        subgraph Stages
+        subgraph "Stages"
             s_list[":features:stages:list"]
             s_nav[":features:stages:navigation"]
             s_data[":features:stages:data"]
@@ -38,79 +44,32 @@ graph TD
         ui[":core:ui"]
     end
 
-    subgraph Sync
-        sync[":sync"]
-    end
-
     subgraph Datasources
         local[":datasources:local"]
         remote[":datasources:remote"]
     end
 
     %% app dependencies
-    app --> auth
-    app --> prefs
-    app --> profile
-    app --> r_details
-    app --> r_list
-    app --> s_list
-    app --> s_nav
-    app --> analytics
-    app --> domain
-    app --> sync
-    app --> ui
+    app --> auth & prefs & profile
+    app --> r_details & r_list
+    app --> s_list & s_nav
+    app --> analytics & domain & ui & sync
 
     %% sync dependencies
-    sync --> auth
-    sync --> prefs
-    sync --> profile
-    sync --> r_data
-    sync --> s_data
-    sync --> domain
-    sync --> analytics
+    sync --> auth & prefs & profile
+    sync --> r_data & s_data
+    sync --> domain & analytics
 
-    %% features dependencies
-    auth --> analytics
-    auth --> domain
-    auth --> ui
-    auth --> local
-    auth --> remote
+    %% features dependencies (via AndroidFeatureConventionPlugin)
+    auth & prefs & profile & r_details & r_list & s_list & s_nav --> analytics & domain & ui & local & remote
 
-    prefs --> analytics
-    prefs --> domain
-    prefs --> ui
-    prefs --> local
-    prefs --> remote
-
-    profile --> analytics
-    profile --> domain
-    profile --> ui
-    profile --> local
-    profile --> remote
-
-    %% Routes and Stages Features depend on their Data modules
-    r_details --> r_data
-    r_list --> r_data
-    s_list --> s_data
-    s_nav --> s_data
-    
-    %% Inherited from convention plugin
-    r_details --> analytics
-    r_details --> ui
-    r_list --> analytics
-    r_list --> ui
-    s_list --> analytics
-    s_list --> ui
-    s_nav --> analytics
-    s_nav --> ui
+    %% Feature specific data dependencies
+    r_details & r_list --> r_data
+    s_list & s_nav --> s_data
 
     %% Data modules dependencies
-    r_data --> domain
-    r_data --> local
-    r_data --> remote
-    s_data --> domain
-    s_data --> local
-    s_data --> remote
+    r_data & s_data --> domain & local & remote
+```
 ```
 
 ## Key Features
@@ -136,9 +95,10 @@ The project's visual specifications and prototypes can be found here:
 ## Getting Started
 
 1. Open the project in Android Studio.
-2. Ensure you have the latest Android SDK - Panda (or newer) installed.
-3. Sync the project with Gradle files.
-4. Run the `app` module on an emulator or physical device.
+2. Ensure you have **JDK 17** or newer configured as your Gradle JDK.
+3. Ensure you have the latest Android SDK - Panda (or newer) installed.
+4. Sync the project with Gradle files.
+5. Run the `app` module on an emulator or physical device.
 
 ## Core Technologies
 
