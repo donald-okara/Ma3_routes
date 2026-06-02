@@ -79,3 +79,61 @@ The architecture follows a strict dependency hierarchy:
 - **Features** depend on **Core** and **Datasources** (via the Controller).
 - **Sync** (within Datasources) depends on the **Controller** to perform data reconciliation.
 - **Domain** (within Core) is the most stable layer and has no outgoing dependencies.
+
+---
+
+## Dependency Graph
+
+```mermaid
+graph TD
+    subgraph App
+        app[":app"]
+    end
+
+    subgraph Features
+        subgraph "Common"
+            auth[":features:authentication"]
+            prefs[":features:preferences"]
+            profile[":features:profile"]
+        end
+        
+        subgraph "Routes"
+            r_details[":features:routes:details"]
+            r_list[":features:routes:list"]
+        end
+        
+        subgraph "Stages"
+            s_list[":features:stages:list"]
+            s_nav[":features:stages:navigation"]
+        end
+    end
+
+    subgraph Core
+        analytics[":core:analytics"]
+        domain[":core:domain"]
+        ui[":core:ui"]
+    end
+
+    subgraph Datasources
+        controller[":datasources:controller"]
+        local[":datasources:local"]
+        remote[":datasources:remote"]
+        sync[":datasources:sync"]
+    end
+
+    %% app dependencies
+    app --> auth & prefs & profile
+    app --> r_details & r_list
+    app --> s_list & s_nav
+    app --> analytics & domain & ui & sync
+
+    %% sync dependencies
+    sync --> controller
+    sync --> domain & analytics
+
+    %% features dependencies (via AndroidFeatureConventionPlugin)
+    auth & prefs & profile & r_details & r_list & s_list & s_nav --> analytics & domain & ui & controller
+
+    %% Controller dependencies
+    controller --> local & remote & domain
+```
