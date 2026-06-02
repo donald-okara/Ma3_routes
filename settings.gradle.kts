@@ -43,6 +43,7 @@ include(":datasources:local")
 
 // Core
 include(":core:ui")
-include(":core:sync")
 include(":core:domain")
 include(":core:analytics")
+
+include(":sync")

@@ -35,8 +35,11 @@ graph TD
     subgraph Core
         analytics[":core:analytics"]
         domain[":core:domain"]
-        sync[":core:sync"]
         ui[":core:ui"]
+    end
+
+    subgraph Sync
+        sync[":sync"]
     end
 
     subgraph Datasources

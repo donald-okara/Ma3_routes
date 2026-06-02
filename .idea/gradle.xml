@@ -27,7 +27,6 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/analytics" />
             <option value="$PROJECT_DIR$/core/domain" />
-            <option value="$PROJECT_DIR$/core/sync" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/datasources" />
             <option value="$PROJECT_DIR$/datasources/local" />
@@ -44,6 +43,7 @@
             <option value="$PROJECT_DIR$/features/stages/data" />
             <option value="$PROJECT_DIR$/features/stages/list" />
             <option value="$PROJECT_DIR$/features/stages/navigation" />
+            <option value="$PROJECT_DIR$/sync" />
           </set>
         </option>
       </GradleProjectSettings>
