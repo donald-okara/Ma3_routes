@@ -14,10 +14,6 @@ graph TD
         app[":app"]
     end
 
-    subgraph Sync
-        sync[":sync"]
-    end
-
     subgraph Features
         subgraph "Common"
             auth[":features:authentication"]
@@ -28,13 +24,11 @@ graph TD
         subgraph "Routes"
             r_details[":features:routes:details"]
             r_list[":features:routes:list"]
-            r_data[":features:routes:data"]
         end
         
         subgraph "Stages"
             s_list[":features:stages:list"]
             s_nav[":features:stages:navigation"]
-            s_data[":features:stages:data"]
         end
     end
 
@@ -45,8 +39,10 @@ graph TD
     end
 
     subgraph Datasources
+        controller[":datasources:controller"]
         local[":datasources:local"]
         remote[":datasources:remote"]
+        sync[":datasources:sync"]
     end
 
     %% app dependencies
@@ -56,19 +52,15 @@ graph TD
     app --> analytics & domain & ui & sync
 
     %% sync dependencies
-    sync --> auth & prefs & profile
-    sync --> r_data & s_data
+    sync --> controller
     sync --> domain & analytics
 
     %% features dependencies (via AndroidFeatureConventionPlugin)
-    auth & prefs & profile & r_details & r_list & s_list & s_nav --> analytics & domain & ui & local & remote
+    auth & prefs & profile & r_details & r_list & s_list & s_nav --> analytics & domain & ui & controller
 
-    %% Feature specific data dependencies
-    r_details & r_list --> r_data
-    s_list & s_nav --> s_data
-
-    %% Data modules dependencies
-    r_data & s_data --> domain & local & remote
+    %% Controller dependencies
+    controller --> local & remote & domain
+```
 ```
 ```
 

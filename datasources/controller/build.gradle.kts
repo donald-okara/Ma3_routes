@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "ke.don.ma3routes.features.routes.data"
+    namespace = "ke.don.ma3routes.datasources.controller"
 }
 
 dependencies {
-    implementation(project(":core:domain"))
     implementation(project(":datasources:local"))
     implementation(project(":datasources:remote"))
+    implementation(project(":core:domain"))
 }

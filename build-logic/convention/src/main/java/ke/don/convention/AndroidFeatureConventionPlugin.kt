@@ -17,8 +17,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:analytics"))
                 add("implementation", project(":core:domain"))
                 add("implementation", project(":core:ui"))
-                add("implementation", project(":datasources:local"))
-                add("implementation", project(":datasources:remote"))
+                add("implementation", project(":datasources:controller"))
             }
         }
     }
