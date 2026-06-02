@@ -18,10 +18,18 @@ graph TD
         auth[":features:authentication"]
         prefs[":features:preferences"]
         profile[":features:profile"]
-        r_details[":features:routes:details"]
-        r_list[":features:routes:list"]
-        s_list[":features:stages:list"]
-        s_nav[":features:stages:navigation"]
+        
+        subgraph Routes
+            r_details[":features:routes:details"]
+            r_list[":features:routes:list"]
+            r_data[":features:routes:data"]
+        end
+        
+        subgraph Stages
+            s_list[":features:stages:list"]
+            s_nav[":features:stages:navigation"]
+            s_data[":features:stages:data"]
+        end
     end
 
     subgraph Core
@@ -53,10 +61,8 @@ graph TD
     sync --> auth
     sync --> prefs
     sync --> profile
-    sync --> r_details
-    sync --> r_list
-    sync --> s_list
-    sync --> s_nav
+    sync --> r_data
+    sync --> s_data
     sync --> domain
     sync --> analytics
 
@@ -79,29 +85,29 @@ graph TD
     profile --> local
     profile --> remote
 
+    %% Routes and Stages Features depend on their Data modules
+    r_details --> r_data
+    r_list --> r_data
+    s_list --> s_data
+    s_nav --> s_data
+    
+    %% Inherited from convention plugin
     r_details --> analytics
-    r_details --> domain
     r_details --> ui
-    r_details --> local
-    r_details --> remote
-
     r_list --> analytics
-    r_list --> domain
     r_list --> ui
-    r_list --> local
-    r_list --> remote
-
     s_list --> analytics
-    s_list --> domain
     s_list --> ui
-    s_list --> local
-    s_list --> remote
-
     s_nav --> analytics
-    s_nav --> domain
     s_nav --> ui
-    s_nav --> local
-    s_nav --> remote
+
+    %% Data modules dependencies
+    r_data --> domain
+    r_data --> local
+    r_data --> remote
+    s_data --> domain
+    s_data --> local
+    s_data --> remote
 ```
 
 ## Key Features

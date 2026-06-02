@@ -14,8 +14,8 @@ dependencies {
     implementation(project(":features:authentication"))
     implementation(project(":features:preferences"))
     implementation(project(":features:profile"))
-    implementation(project(":features:routes:details"))
-    implementation(project(":features:routes:list"))
-    implementation(project(":features:stages:list"))
-    implementation(project(":features:stages:navigation"))
+    
+    // Feature Data Modules
+    implementation(project(":features:routes:data"))
+    implementation(project(":features:stages:data"))
 }

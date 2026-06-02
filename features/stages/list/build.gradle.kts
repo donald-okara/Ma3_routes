@@ -7,4 +7,5 @@ android {
 }
 
 dependencies {
+    implementation(project(":features:stages:data"))
 }

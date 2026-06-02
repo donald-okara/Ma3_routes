@@ -37,9 +37,11 @@
             <option value="$PROJECT_DIR$/features/preferences" />
             <option value="$PROJECT_DIR$/features/profile" />
             <option value="$PROJECT_DIR$/features/routes" />
+            <option value="$PROJECT_DIR$/features/routes/data" />
             <option value="$PROJECT_DIR$/features/routes/details" />
             <option value="$PROJECT_DIR$/features/routes/list" />
             <option value="$PROJECT_DIR$/features/stages" />
+            <option value="$PROJECT_DIR$/features/stages/data" />
             <option value="$PROJECT_DIR$/features/stages/list" />
             <option value="$PROJECT_DIR$/features/stages/navigation" />
           </set>
