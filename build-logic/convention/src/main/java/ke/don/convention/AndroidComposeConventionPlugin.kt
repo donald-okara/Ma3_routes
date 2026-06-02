@@ -14,13 +14,7 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
 
             pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
 
-            val extension = try {
-                extensions.getByType(CommonExtension::class.java)
-            } catch (e: Exception) {
-                null
-            }
-
-            extension?.apply {
+            extensions.findByType(CommonExtension::class.java)?.apply {
                 buildFeatures.compose = true
             }
 
