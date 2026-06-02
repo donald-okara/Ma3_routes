@@ -13,7 +13,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("com.android.application")
-                apply("org.jetbrains.kotlin.plugin.compose")
+                apply("ma3.android.compose")
             }
 
             extensions.configure<ApplicationExtension> {
@@ -52,10 +52,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     compilerOptions {
                         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
                     }
-                }
-
-                buildFeatures {
-                    compose = true
                 }
 
                 packaging {

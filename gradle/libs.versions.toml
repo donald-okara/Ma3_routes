@@ -28,11 +28,25 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
+[bundles]
+compose = [
+    "androidx-compose-material3", "androidx-compose-ui", "androidx-compose-ui-graphics", "androidx-compose-ui-tooling-preview",
+]
+test-compose = [
+    "androidx-compose-ui-test-junit4",
+]
+
+debug-preview = [
+    "androidx-compose-ui-test-manifest", "androidx-compose-ui-tooling"
+]
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
+# Custom plugins
 ma3-android-library = { id = "ma3.android.library" }
 ma3-android-application = { id = "ma3.android.application" }
 ma3-android-feature = { id = "ma3.android.feature" }
+ma3-android-compose = { id = "ma3.android.compose" }

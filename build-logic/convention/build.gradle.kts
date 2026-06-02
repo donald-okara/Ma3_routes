@@ -31,5 +31,9 @@ gradlePlugin {
             id = libs.plugins.ma3.android.feature.get().pluginId
             implementationClass = "ke.don.convention.AndroidFeatureConventionPlugin"
         }
+        register("androidCompose") {
+            id = libs.plugins.ma3.android.compose.get().pluginId
+            implementationClass = "ke.don.convention.AndroidComposeConventionPlugin"
+        }
     }
 }
