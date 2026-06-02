@@ -76,6 +76,6 @@ The `sync` module runs periodically in the background. It interacts with the **C
 
 ## Dependencies
 The architecture follows a strict dependency hierarchy:
-- **Features** depend on **Core** and **Datasources** (via abstractions).
-- **Sync** depends on **Features** to perform data reconciliation.
+- **Features** depend on **Core** and **Datasources** (via the Controller).
+- **Sync** (within Datasources) depends on the **Controller** to perform data reconciliation.
 - **Domain** (within Core) is the most stable layer and has no outgoing dependencies.

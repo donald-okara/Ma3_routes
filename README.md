@@ -61,8 +61,6 @@ graph TD
     %% Controller dependencies
     controller --> local & remote & domain
 ```
-```
-```
 
 ## Key Features
 
