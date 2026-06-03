@@ -7,5 +7,4 @@ android {
 }
 
 dependencies {
-    implementation(project(":features:routes:data"))
 }

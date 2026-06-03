@@ -29,12 +29,16 @@ Each feature module contains its own UI, ViewModels, and Repositories.
 - **Authentication:** User sign-in, sign-up, and session management.
 
 ### 2. Datasources
-Handles data retrieval and persistence.
+Handles data retrieval, persistence, and synchronization.
 
+- **Controller:**
+    - The central entry point for all data operations. It orchestrates between local and remote sources and provides a unified API to the features.
 - **Remote:**
     - Handles API calls, authentication network requests, and external service integrations.
 - **Local:**
     - Manages the local database (SQLite/Room), preferences storage, and caching.
+- **Sync:**
+    - Orchestrates the synchronization logic. It depends on the Controller to define how to reconcile remote and local data.
 
 ### 3. Core
 Shared infrastructure used across the entire application.
@@ -43,8 +47,6 @@ Shared infrastructure used across the entire application.
     - **Theme:** Design system implementation (Colors, Typography, Shapes).
     - **Components:** Reusable UI elements.
     - **Navigation:** App-wide navigation logic (not location-based).
-- **Sync:**
-    - Orchestrates the synchronization logic. It depends on features to define how to reconcile remote and local data.
 - **Domain:**
     - Holds the "Source of Truth" models.
     - Includes **Mappers** to convert between DTOs (Data Transfer Objects), Domain models, and Database Entities.
@@ -55,16 +57,14 @@ Shared infrastructure used across the entire application.
 
 ## Data Flow & Synchronization
 
-### Feature Repositories
-Each feature owns its own repository. The repository is responsible for:
-1. Providing a `Flow` of data from the **Local Datasource**.
-2. Exposing methods for the **Sync** module to trigger updates from the **Remote Datasource**.
+### Feature Interaction
+Features interact exclusively with the **Datasources Controller**. They do not have direct knowledge of whether data is coming from a local cache or a remote network.
 
 ### Sync Logic
-The `sync` module runs periodically in the background. It interacts with feature repositories to:
+The `sync` module runs periodically in the background. It interacts with the **Controller** to:
 1. Fetch the latest data from the **Remote Datasource**.
 2. Update the **Local Datasource**.
-3. Handle conflict resolution between local and remote states.
+3. Handle conflict resolution.
 
 ### UI Interaction
 1. **View** observes a `State` from the **ViewModel**.
@@ -76,6 +76,64 @@ The `sync` module runs periodically in the background. It interacts with feature
 
 ## Dependencies
 The architecture follows a strict dependency hierarchy:
-- **Features** depend on **Core** and **Datasources** (via abstractions).
-- **Sync** depends on **Features** to perform data reconciliation.
+- **Features** depend on **Core** and **Datasources** (via the Controller).
+- **Sync** (within Datasources) depends on the **Controller** to perform data reconciliation.
 - **Domain** (within Core) is the most stable layer and has no outgoing dependencies.
+
+---
+
+## Dependency Graph
+
+```mermaid
+graph TD
+    subgraph App
+        app[":app"]
+    end
+
+    subgraph Features
+        subgraph "Common"
+            auth[":features:authentication"]
+            prefs[":features:preferences"]
+            profile[":features:profile"]
+        end
+        
+        subgraph "Routes"
+            r_details[":features:routes:details"]
+            r_list[":features:routes:list"]
+        end
+        
+        subgraph "Stages"
+            s_list[":features:stages:list"]
+            s_nav[":features:stages:navigation"]
+        end
+    end
+
+    subgraph Core
+        analytics[":core:analytics"]
+        domain[":core:domain"]
+        ui[":core:ui"]
+    end
+
+    subgraph Datasources
+        controller[":datasources:controller"]
+        local[":datasources:local"]
+        remote[":datasources:remote"]
+        sync[":datasources:sync"]
+    end
+
+    %% app dependencies
+    app --> auth & prefs & profile
+    app --> r_details & r_list
+    app --> s_list & s_nav
+    app --> analytics & domain & ui & sync
+
+    %% sync dependencies
+    sync --> controller
+    sync --> domain & analytics
+
+    %% features dependencies (via AndroidFeatureConventionPlugin)
+    auth & prefs & profile & r_details & r_list & s_list & s_nav --> analytics & domain & ui & controller
+
+    %% Controller dependencies
+    controller --> local & remote & domain
+```
