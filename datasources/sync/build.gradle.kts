@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "ke.don.ma3routes.sync"
+    namespace = "ke.don.ma3routes.datasources.sync"
 }
 
 dependencies {
