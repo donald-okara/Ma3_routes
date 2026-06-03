@@ -1,4 +1,4 @@
-package ke.don.ma3routes.ui.theme
+package ke.don.ma3routes.core.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -13,14 +13,14 @@ val Typography = Typography(
         fontWeight = FontWeight.ExtraBold,
         fontSize = 48.sp,
         lineHeight = 48.sp,
-        letterSpacing = (-1.92).sp // -0.04em * 48
+        letterSpacing = (-1.92).sp
     ),
     headlineLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
         lineHeight = 32.sp,
-        letterSpacing = (-0.48).sp // -0.02em * 24
+        letterSpacing = (-0.48).sp
     ),
     headlineMedium = TextStyle(
         fontFamily = FontFamily.Default,

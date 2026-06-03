@@ -1,4 +1,4 @@
-package ke.don.ma3routes.ui.theme
+package ke.don.ma3routes.core.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes

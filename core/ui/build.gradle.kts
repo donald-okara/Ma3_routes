@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.ma3.android.library)
+    alias(libs.plugins.ma3.android.compose)
 }
 
 android {
