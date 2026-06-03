@@ -40,10 +40,10 @@ fun ThemeShowcase() {
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    ColorCard("Primary", MaterialTheme.colorScheme.primaryContainer)
-                    ColorCard("Secondary", MaterialTheme.colorScheme.secondaryContainer)
-                    ColorCard("Tertiary", MaterialTheme.colorScheme.tertiaryContainer)
-                    ColorCard("Neutral", MaterialTheme.colorScheme.onSurfaceVariant)
+                    ColorCard("Primary Container", MaterialTheme.colorScheme.primaryContainer)
+                    ColorCard("Secondary Container", MaterialTheme.colorScheme.secondaryContainer)
+                    ColorCard("Tertiary Container", MaterialTheme.colorScheme.tertiaryContainer)
+                    ColorCard("Neutral Container", MaterialTheme.colorScheme.onSurfaceVariant)
                 }
 
                 // Column 2: Typography
@@ -165,7 +165,8 @@ fun TypographyCard(title: String, font: String, sample: String, style: androidx.
             Text(
                 text = sample,
                 modifier = Modifier.align(Alignment.Center),
-                style = style
+                style = style,
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
     }
