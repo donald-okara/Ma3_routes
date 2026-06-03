@@ -2,55 +2,32 @@ package ke.don.ma3routes.core.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import ke.don.ma3routes.core.ui.R
 
-// Set of Material typography styles to start with
+val Inter = FontFamily(
+    Font(R.font.inter_regular, FontWeight.Normal)
+)
+
+val baseline = Typography()
+
 val Typography = Typography(
-    displayLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.ExtraBold,
-        fontSize = 48.sp,
-        lineHeight = 48.sp,
-        letterSpacing = (-1.92).sp
-    ),
-    headlineLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        fontSize = 24.sp,
-        lineHeight = 32.sp,
-        letterSpacing = (-0.48).sp
-    ),
-    headlineMedium = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 18.sp,
-        lineHeight = 24.sp
-    ),
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp
-    ),
-    bodyMedium = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
-        lineHeight = 20.sp
-    ),
-    labelLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        fontSize = 12.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.6.sp // 0.05em * 12
-    ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 14.sp
-    )
+    displayLarge = baseline.displayLarge.copy(fontFamily = Inter),
+    displayMedium = baseline.displayMedium.copy(fontFamily = Inter),
+    displaySmall = baseline.displaySmall.copy(fontFamily = Inter),
+    headlineLarge = baseline.headlineLarge.copy(fontFamily = Inter),
+    headlineMedium = baseline.headlineMedium.copy(fontFamily = Inter),
+    headlineSmall = baseline.headlineSmall.copy(fontFamily = Inter),
+    titleLarge = baseline.titleLarge.copy(fontFamily = Inter),
+    titleMedium = baseline.titleMedium.copy(fontFamily = Inter),
+    titleSmall = baseline.titleSmall.copy(fontFamily = Inter),
+    bodyLarge = baseline.bodyLarge.copy(fontFamily = Inter),
+    bodyMedium = baseline.bodyMedium.copy(fontFamily = Inter),
+    bodySmall = baseline.bodySmall.copy(fontFamily = Inter),
+    labelLarge = baseline.labelLarge.copy(fontFamily = Inter),
+    labelMedium = baseline.labelMedium.copy(fontFamily = Inter),
+    labelSmall = baseline.labelSmall.copy(fontFamily = Inter),
 )

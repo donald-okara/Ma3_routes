@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -45,13 +47,37 @@ fun ThemeShowcase() {
                 }
 
                 // Column 2: Typography
+                val typographyItems = listOf(
+                    "Display Large" to MaterialTheme.typography.displayLarge,
+                    "Display Medium" to MaterialTheme.typography.displayMedium,
+                    "Display Small" to MaterialTheme.typography.displaySmall,
+                    "Headline Large" to MaterialTheme.typography.headlineLarge,
+                    "Headline Medium" to MaterialTheme.typography.headlineMedium,
+                    "Headline Small" to MaterialTheme.typography.headlineSmall,
+                    "Title Large" to MaterialTheme.typography.titleLarge,
+                    "Title Medium" to MaterialTheme.typography.titleMedium,
+                    "Title Small" to MaterialTheme.typography.titleSmall,
+                    "Body Large" to MaterialTheme.typography.bodyLarge,
+                    "Body Medium" to MaterialTheme.typography.bodyMedium,
+                    "Label Large" to MaterialTheme.typography.labelLarge,
+                    "Label Medium" to MaterialTheme.typography.labelMedium,
+                    "Label Small" to MaterialTheme.typography.labelSmall,
+                )
+
                 Column(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    TypographyCard("Headline", "Inter", "Aa", MaterialTheme.typography.headlineLarge)
-                    TypographyCard("Body", "Inter", "Aa", MaterialTheme.typography.bodyLarge)
-                    TypographyCard("Label", "Inter", "Aa", MaterialTheme.typography.labelLarge)
+                    typographyItems.forEach { (name, style) ->
+                        TypographyCard(
+                            title = name,
+                            font = "Inter",
+                            sample = "Aa",
+                            style = style
+                        )
+                    }
                 }
 
                 // Column 3: Components A
@@ -124,7 +150,7 @@ fun ColorCard(title: String, color: Color) {
 @Composable
 fun TypographyCard(title: String, font: String, sample: String, style: androidx.compose.ui.text.TextStyle) {
     Card(
-        modifier = Modifier.fillMaxWidth().height(180.dp),
+        modifier = Modifier.fillMaxWidth().height(120.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         shape = RoundedCornerShape(24.dp)
     ) {
@@ -139,7 +165,7 @@ fun TypographyCard(title: String, font: String, sample: String, style: androidx.
             Text(
                 text = sample,
                 modifier = Modifier.align(Alignment.Center),
-                style = style.copy(fontSize = 72.sp)
+                style = style
             )
         }
     }
@@ -336,9 +362,9 @@ fun NavBarCard() {
 }
 
 @Composable
-fun ColumnScope.ActionIconsCard() {
+fun ActionIconsCard() {
     Card(
-        modifier = Modifier.fillMaxWidth().weight(1f),
+        modifier = Modifier.fillMaxWidth().height(120.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         shape = RoundedCornerShape(24.dp)
     ) {
