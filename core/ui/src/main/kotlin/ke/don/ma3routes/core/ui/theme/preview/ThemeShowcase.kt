@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ke.don.ma3routes.core.ui.components.buttons.ButtonType
 import ke.don.ma3routes.core.ui.components.buttons.Ma3Button
+import ke.don.ma3routes.core.ui.components.icons.Ma3IconButton
 import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
 
 @Composable
@@ -99,7 +100,6 @@ fun ThemeShowcase() {
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     SearchBarCard()
-                    NavBarCard()
                     ActionIconsCard()
                 }
             }
@@ -242,16 +242,13 @@ fun IconButtonsCard() {
             shape = RoundedCornerShape(24.dp)
         ) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                IconButton(
-                    onClick = {},
-                    colors = IconButtonDefaults.iconButtonColors().copy(
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer
-                    ),
-                    modifier = Modifier
-                        .size(48.dp)
+                Ma3IconButton(
+                    onClick = {}
                 ) {
-                    Icon(Icons.Default.Edit, contentDescription = null)
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = ""
+                    )
                 }
             }
         }
@@ -293,44 +290,6 @@ fun SearchBarCard() {
                     Icon(Icons.Default.Search, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f), modifier = Modifier.size(20.dp))
                     Spacer(modifier = Modifier.width(8.dp))
                     Text("Search", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f))
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun NavBarCard() {
-    Card(
-        modifier = Modifier.fillMaxWidth().height(120.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        shape = RoundedCornerShape(24.dp)
-    ) {
-        Box(modifier = Modifier.padding(16.dp).fillMaxSize(), contentAlignment = Alignment.Center) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-                    .clip(RoundedCornerShape(28.dp))
-                    .background(MaterialTheme.colorScheme.surface),
-                contentAlignment = Alignment.Center
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(Icons.Default.Home, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary, modifier = Modifier.size(20.dp))
-                    }
-                    Icon(Icons.Default.Search, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f), modifier = Modifier.size(20.dp))
-                    Icon(Icons.Default.Person, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f), modifier = Modifier.size(20.dp))
                 }
             }
         }

@@ -86,7 +86,7 @@ fun Ma3Button(
     enabled: Boolean = true,
     loading: Boolean = false,
     type: ButtonType = ButtonType.Primary,
-    shape: Shape = MaterialTheme.shapes.extraSmall,
+    shape: Shape = MaterialTheme.shapes.small,
     colors: ButtonColors = buttonColorsFor(type),
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
     border: BorderStroke? =
