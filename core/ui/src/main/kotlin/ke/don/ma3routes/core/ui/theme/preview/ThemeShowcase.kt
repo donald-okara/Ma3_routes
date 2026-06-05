@@ -21,10 +21,13 @@ import androidx.compose.ui.tooling.preview.AndroidUiModes.UI_MODE_TYPE_NORMAL
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ke.don.ma3routes.core.ui.components.buttons.ButtonType
+import ke.don.ma3routes.core.ui.components.buttons.Ma3Button
+import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
 
 @Composable
 fun ThemeShowcase() {
-    _root_ide_package_.ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme {
+    Ma3RoutesTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -179,44 +182,17 @@ fun ButtonsCard() {
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         shape = RoundedCornerShape(24.dp)
     ) {
-        Column(
+        FlowRow(
             modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)
         ) {
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Button(
-                    onClick = {},
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary),
-                    contentPadding = PaddingValues(vertical = 8.dp)
-                ) {
-                    Text("Primary", style = MaterialTheme.typography.labelMedium)
-                }
-                Button(
-                    onClick = {},
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary, contentColor = MaterialTheme.colorScheme.onSecondary),
-                    contentPadding = PaddingValues(vertical = 8.dp)
-                ) {
-                    Text("Secondary", style = MaterialTheme.typography.labelMedium)
-                }
-            }
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Button(
-                    onClick = {},
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onSurface, contentColor = MaterialTheme.colorScheme.surface),
-                    contentPadding = PaddingValues(vertical = 8.dp)
-                ) {
-                    Text("Inverted", style = MaterialTheme.typography.labelMedium)
-                }
-                OutlinedButton(
-                    onClick = {},
-                    modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(vertical = 8.dp)
-                ) {
-                    Text("Outlined", style = MaterialTheme.typography.labelMedium)
-                }
+            ButtonType.entries.forEach { type ->
+                Ma3Button(
+                    text = type.name,
+                    type = type,
+                    onClick = {}
+                )
             }
         }
     }
@@ -268,12 +244,14 @@ fun IconButtonsCard() {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 IconButton(
                     onClick = {},
+                    colors = IconButtonDefaults.iconButtonColors().copy(
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                    ),
                     modifier = Modifier
                         .size(48.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                 ) {
-                    Icon(Icons.Default.Edit, contentDescription = null, tint = MaterialTheme.colorScheme.onTertiaryContainer)
+                    Icon(Icons.Default.Edit, contentDescription = null)
                 }
             }
         }
@@ -283,13 +261,10 @@ fun IconButtonsCard() {
             shape = RoundedCornerShape(24.dp)
         ) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Button(
+                Ma3Button(
                     onClick = {},
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer, contentColor = MaterialTheme.colorScheme.onPrimaryContainer),
-                    shape = RoundedCornerShape(12.dp)
                 ) {
                     Icon(Icons.Default.Edit, contentDescription = null, modifier = Modifier.size(18.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
                     Text("Label", style = MaterialTheme.typography.labelLarge)
                 }
             }

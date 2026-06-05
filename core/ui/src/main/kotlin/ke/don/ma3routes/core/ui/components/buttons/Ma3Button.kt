@@ -1,8 +1,5 @@
 package ke.don.ma3routes.core.ui.components.buttons
 
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +29,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import ke.don.ma3routes.core.ui.components.loaders.LoadingDots
+import ke.don.ma3routes.core.ui.theme.preview.PreviewContent
 
 /**
  * A custom button component for the Ma3routes application.
@@ -41,6 +39,7 @@ import ke.don.ma3routes.core.ui.components.loaders.LoadingDots
  * @param modifier The modifier to be applied to the button.
  * @param enabled Whether the button is enabled.
  * @param loading Whether the button is in a loading state.
+ * @param type The [ButtonType] of the button, determining its default colors.
  */
 @Composable
 fun Ma3Button(
@@ -49,12 +48,14 @@ fun Ma3Button(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     loading: Boolean = false,
+    type: ButtonType = ButtonType.Primary,
 ) {
     Ma3Button(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
         loading = loading,
+        type = type,
     ) {
         Text(
             text = text
@@ -69,8 +70,9 @@ fun Ma3Button(
  * @param modifier The modifier to be applied to the button.
  * @param enabled Whether the button is enabled.
  * @param loading Whether the button is in a loading state.
+ * @param type The [ButtonType] of the button, determining its default colors.
  * @param shape The shape of the button.
- * @param colors The colors to be used for the button.
+ * @param colors The colors to be used for the button. Defaults to the colors for the given [type].
  * @param elevation The elevation of the button.
  * @param border The border of the button.
  * @param contentPadding The padding to be applied to the button content.
@@ -83,10 +85,17 @@ fun Ma3Button(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     loading: Boolean = false,
+    type: ButtonType = ButtonType.Primary,
     shape: Shape = MaterialTheme.shapes.extraSmall,
-    colors: ButtonColors = ButtonDefaults.buttonColors(),
+    colors: ButtonColors = buttonColorsFor(type),
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
-    border: BorderStroke? = null,
+    border: BorderStroke? =
+        if (type == ButtonType.Outlined)
+            BorderStroke(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.primary
+            )
+        else null,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource? = null,
     content: @Composable RowScope.() -> Unit,
@@ -133,7 +142,7 @@ fun ButtonContentSwitcher(
             modifier = Modifier
                 .onGloballyPositioned { coords ->
                     // Only update size if not loading or if size is zero
-                    if (!loading || contentSize == IntSize.Zero) {
+                    if (!loading || (contentSize == IntSize.Zero)) {
                         contentSize = coords.size
                     }
                 }
@@ -155,23 +164,5 @@ fun ButtonContentSwitcher(
                 dotSize = dotSize,
             )
         }
-    }
-}
-
-@PreviewLightDark
-@Composable
-fun Ma3ButtonPreview() {
-    PreviewContent {
-        var loading by remember {
-            mutableStateOf(false)
-        }
-
-        Ma3Button(
-            onClick = {
-                loading = !loading
-            },
-            loading = loading,
-            text = "Click me"
-        )
     }
 }
