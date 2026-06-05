@@ -1,4 +1,4 @@
-package ke.don.ma3routes.core.ui.theme
+package ke.don.ma3routes.core.ui.theme.preview
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ThemeShowcase() {
-    Ma3RoutesTheme {
+    _root_ide_package_.ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
