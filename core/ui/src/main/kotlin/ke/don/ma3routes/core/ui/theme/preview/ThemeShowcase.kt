@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ke.don.ma3routes.core.ui.components.buttons.ButtonType
 import ke.don.ma3routes.core.ui.components.buttons.Ma3Button
+import ke.don.ma3routes.core.ui.components.icons.Ma3Icon
 import ke.don.ma3routes.core.ui.components.icons.Ma3IconButton
 import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
 
@@ -299,40 +300,66 @@ fun SearchBarCard() {
 @Composable
 fun ActionIconsCard() {
     Card(
-        modifier = Modifier.fillMaxWidth().height(120.dp),
+        modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         shape = RoundedCornerShape(24.dp)
     ) {
-        Box(modifier = Modifier.padding(16.dp).fillMaxSize(), contentAlignment = Alignment.Center) {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                repeat(4) { index ->
-                    val color = when(index) {
-                        0 -> MaterialTheme.colorScheme.primary
-                        1 -> MaterialTheme.colorScheme.secondary
-                        2 -> MaterialTheme.colorScheme.tertiary
-                        else -> MaterialTheme.colorScheme.error
-                    }
-                    val onColor = when(index) {
-                        0 -> MaterialTheme.colorScheme.onPrimary
-                        1 -> MaterialTheme.colorScheme.onSecondary
-                        2 -> MaterialTheme.colorScheme.onTertiary
-                        else -> MaterialTheme.colorScheme.onError
-                    }
-                    val icon = when(index) {
-                        0 -> Icons.Default.Brush
-                        1 -> Icons.Default.Category
-                        2 -> Icons.Default.Label
-                        else -> Icons.Default.Delete
-                    }
-                    Box(
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clip(CircleShape)
-                            .background(color),
-                        contentAlignment = Alignment.Center
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Text(
+                "Action Buttons",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+            )
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                ButtonType.entries.forEach { type ->
+                    Ma3IconButton(
+                        type = type,
+                        onClick = {}
                     ) {
-                        Icon(icon, contentDescription = null, tint = onColor, modifier = Modifier.size(20.dp))
+                        Icon(
+                            imageVector = when (type) {
+                                ButtonType.Primary -> Icons.Default.Add
+                                ButtonType.Secondary -> Icons.Default.Share
+                                ButtonType.Tertiary -> Icons.Default.Favorite
+                                ButtonType.Danger -> Icons.Default.Delete
+                                ButtonType.Outlined -> Icons.Default.MoreVert
+                            },
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp)
+                        )
                     }
+                }
+            }
+
+            Text(
+                "Static Icons",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+            )
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                val iconItems = listOf(
+                    Triple(Icons.Default.DirectionsBus, MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.onPrimary),
+                    Triple(Icons.Default.Place, MaterialTheme.colorScheme.secondary, MaterialTheme.colorScheme.onSecondary),
+                    Triple(Icons.Default.Schedule, MaterialTheme.colorScheme.tertiary, MaterialTheme.colorScheme.onTertiary),
+                    Triple(Icons.Default.Warning, MaterialTheme.colorScheme.error, MaterialTheme.colorScheme.onError),
+                    Triple(Icons.Default.Edit, MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.onSurface),
+                )
+
+                iconItems.forEach { (icon, color, onColor) ->
+                    Ma3Icon(
+                        icon = icon,
+                        color = color,
+                        onColor = onColor
+                    )
                 }
             }
         }

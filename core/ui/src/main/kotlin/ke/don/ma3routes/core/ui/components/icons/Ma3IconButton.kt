@@ -4,6 +4,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
@@ -20,13 +21,26 @@ fun Ma3IconButton(
     shape: Shape = MaterialTheme.shapes.small,
     content: @Composable () -> Unit,
 ){
-    IconButton(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        colors = colors,
-        interactionSource = interactionSource,
-        shape = shape,
-        content = content
-    ) 
+    if (type != ButtonType.Outlined) {
+        IconButton(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors,
+            interactionSource = interactionSource,
+            shape = shape,
+            content = content
+        )
+    } else {
+        OutlinedIconButton(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors,
+            interactionSource = interactionSource,
+            shape = shape,
+            content = content
+        )
+    }
+
 }
