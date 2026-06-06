@@ -1,28 +1,59 @@
 package ke.don.ma3routes.core.ui.theme.preview
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.DirectionsBus
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.AndroidUiModes.UI_MODE_NIGHT_YES
 import androidx.compose.ui.tooling.preview.AndroidUiModes.UI_MODE_TYPE_NORMAL
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import ke.don.ma3routes.core.ui.components.buttons.ButtonType
 import ke.don.ma3routes.core.ui.components.buttons.Ma3Button
+import ke.don.ma3routes.core.ui.components.card.CardType
+import ke.don.ma3routes.core.ui.components.card.Ma3Card
 import ke.don.ma3routes.core.ui.components.icons.Ma3Icon
 import ke.don.ma3routes.core.ui.components.icons.Ma3IconButton
 import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
@@ -37,6 +68,7 @@ fun ThemeShowcase() {
             Row(
                 modifier = Modifier
                     .fillMaxSize()
+                    .horizontalScroll(rememberScrollState())
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
@@ -48,7 +80,7 @@ fun ThemeShowcase() {
                     ColorCard("Primary Container", MaterialTheme.colorScheme.primaryContainer)
                     ColorCard("Secondary Container", MaterialTheme.colorScheme.secondaryContainer)
                     ColorCard("Tertiary Container", MaterialTheme.colorScheme.tertiaryContainer)
-                    ColorCard("Neutral Container", MaterialTheme.colorScheme.onSurfaceVariant)
+                    ColorCard("Inverse Container", MaterialTheme.colorScheme.onSurfaceVariant)
                 }
 
                 // Column 2: Typography
@@ -103,6 +135,9 @@ fun ThemeShowcase() {
                     SearchBarCard()
                     ActionIconsCard()
                 }
+
+                // Column 5: Cards
+                CardsShowcase()
             }
         }
     }
@@ -110,10 +145,8 @@ fun ThemeShowcase() {
 
 @Composable
 fun ColorCard(title: String, color: Color) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        shape = RoundedCornerShape(24.dp)
+    Ma3Card(
+        modifier = Modifier.fillMaxWidth()
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -152,11 +185,10 @@ fun ColorCard(title: String, color: Color) {
 }
 
 @Composable
-fun TypographyCard(title: String, font: String, sample: String, style: androidx.compose.ui.text.TextStyle) {
-    Card(
+fun TypographyCard(title: String, font: String, sample: String, style: TextStyle, type: CardType = CardType.Filled) {
+    Ma3Card(
         modifier = Modifier.fillMaxWidth().height(120.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        shape = RoundedCornerShape(24.dp)
+        type = type
     ) {
         Box(modifier = Modifier.padding(16.dp).fillMaxSize()) {
             Row(
@@ -177,11 +209,29 @@ fun TypographyCard(title: String, font: String, sample: String, style: androidx.
 }
 
 @Composable
+fun RowScope.CardsShowcase(){
+    Column(
+        modifier = Modifier.weight(1f),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ){
+        val text = "Aa" to MaterialTheme.typography.displayLarge
+
+        CardType.entries.forEach { type ->
+            TypographyCard(
+                font = "Inter",
+                title = type.name,
+                sample = text.first,
+                style = text.second,
+                type = type
+            )
+        }
+    }
+}
+
+@Composable
 fun ButtonsCard() {
-    Card(
+    Ma3Card(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        shape = RoundedCornerShape(24.dp)
     ) {
         FlowRow(
             modifier = Modifier.padding(16.dp),
@@ -201,10 +251,8 @@ fun ButtonsCard() {
 
 @Composable
 fun ProgressCard() {
-    Card(
+    Ma3Card(
         modifier = Modifier.fillMaxWidth().height(120.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        shape = RoundedCornerShape(24.dp)
     ) {
         Column(
             modifier = Modifier.padding(16.dp).fillMaxSize(),
@@ -237,10 +285,8 @@ fun IconButtonsCard() {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Card(
+        Ma3Card(
             modifier = Modifier.size(80.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-            shape = RoundedCornerShape(24.dp)
         ) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Ma3IconButton(
@@ -253,10 +299,8 @@ fun IconButtonsCard() {
                 }
             }
         }
-        Card(
+        Ma3Card(
             modifier = Modifier.weight(1f).height(80.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-            shape = RoundedCornerShape(24.dp)
         ) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Ma3Button(
