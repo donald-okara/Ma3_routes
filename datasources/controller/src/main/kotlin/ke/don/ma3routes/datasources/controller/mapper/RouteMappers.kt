@@ -23,28 +23,28 @@ fun RouteDto.asEntity(): RouteEntity = RouteEntity(
     id = id,
     number = number,
     corridor = corridor,
-    createdAt = 0L, // TODO: Parse createdAt string to Long if needed
+    createdAt = createdAt.toEpochMillis(),
 )
 
 fun RouteEntity.asDomain(): RouteDomain = RouteDomain(
     id = id,
     number = number,
     corridor = corridor,
-    createdAt = createdAt.toString(),
+    createdAt = createdAt.toHumanReadable(),
 )
 
 fun RouteDto.asDomain(): RouteDomain = RouteDomain(
     id = id,
     number = number,
     corridor = corridor,
-    createdAt = createdAt,
+    createdAt = createdAt.toHumanReadable(),
 )
 
 fun RouteDomain.asEntity(): RouteEntity = RouteEntity(
     id = id,
     number = number,
     corridor = corridor,
-    createdAt = createdAt.toLongOrNull() ?: 0L,
+    createdAt = createdAt.toEpochMillis(),
 )
 
 fun RouteDomain.asDto(): RouteDto = RouteDto(

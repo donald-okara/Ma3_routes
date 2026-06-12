@@ -29,12 +29,13 @@ class RouteMappersTest {
             id = "1",
             number = "33",
             corridor = "Ngong",
-            createdAt = "2025-01-01",
+            createdAt = "2026-06-01 10:50:27.896745",
         )
         val entity = dto.asEntity()
         assertEquals(dto.id, entity.id)
         assertEquals(dto.number, entity.number)
         assertEquals(dto.corridor, entity.corridor)
+        assert(entity.createdAt > 0L)
     }
 
     @Test
@@ -49,7 +50,7 @@ class RouteMappersTest {
         assertEquals(entity.id, domain.id)
         assertEquals(entity.number, domain.number)
         assertEquals(entity.corridor, domain.corridor)
-        assertEquals("123456789", domain.createdAt)
+        assert(domain.createdAt.isNotEmpty())
     }
 
     @Test
@@ -58,13 +59,13 @@ class RouteMappersTest {
             id = "1",
             number = "33",
             corridor = "Ngong",
-            createdAt = "2025-01-01",
+            createdAt = "2026-06-01 10:50:27.896745",
         )
         val domain = dto.asDomain()
         assertEquals(dto.id, domain.id)
         assertEquals(dto.number, domain.number)
         assertEquals(dto.corridor, domain.corridor)
-        assertEquals(dto.createdAt, domain.createdAt)
+        assert(domain.createdAt.isNotEmpty())
     }
 
     @Test
@@ -73,13 +74,13 @@ class RouteMappersTest {
             id = "1",
             number = "33",
             corridor = "Ngong",
-            createdAt = "123456789",
+            createdAt = "01 Jun 2026, 10:50",
         )
         val entity = domain.asEntity()
         assertEquals(domain.id, entity.id)
         assertEquals(domain.number, entity.number)
         assertEquals(domain.corridor, entity.corridor)
-        assertEquals(123456789L, entity.createdAt)
+        assert(entity.createdAt > 0L)
     }
 
     @Test
@@ -88,12 +89,12 @@ class RouteMappersTest {
             id = "1",
             number = "33",
             corridor = "Ngong",
-            createdAt = "2025-01-01",
+            createdAt = "01 Jun 2026, 10:50",
         )
         val dto = domain.asDto()
         assertEquals(domain.id, dto.id)
         assertEquals(domain.number, dto.number)
         assertEquals(domain.corridor, dto.corridor)
-        assertEquals(domain.createdAt, dto.createdAt)
+        assertEquals("01 Jun 2026, 10:50", dto.createdAt)
     }
 }

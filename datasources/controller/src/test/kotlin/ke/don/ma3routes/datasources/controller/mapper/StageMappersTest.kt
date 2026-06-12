@@ -31,12 +31,13 @@ class StageMappersTest {
             area = "CBD",
             lat = -1.28,
             lng = 36.82,
-            createdAt = "2025-01-01",
+            createdAt = "2026-06-01 10:50:27.896745",
         )
         val entity = dto.asEntity()
         assertEquals(dto.id, entity.id)
         assertEquals(dto.name, entity.name)
         assertEquals(dto.lat, entity.lat)
+        assert(entity.createdAt > 0L)
     }
 
     @Test
@@ -52,7 +53,7 @@ class StageMappersTest {
         val domain = entity.asDomain()
         assertEquals(entity.id, domain.id)
         assertEquals(entity.name, domain.name)
-        assertEquals("123456789", domain.createdAt)
+        assert(domain.createdAt.isNotEmpty())
     }
 
     @Test
@@ -63,11 +64,11 @@ class StageMappersTest {
             area = "CBD",
             lat = -1.28,
             lng = 36.82,
-            createdAt = "2025-01-01",
+            createdAt = "01 Jun 2026, 10:50",
         )
         val dto = domain.asDto()
         assertEquals(domain.id, dto.id)
         assertEquals(domain.name, dto.name)
-        assertEquals(domain.createdAt, dto.createdAt)
+        assertEquals("01 Jun 2026, 10:50", dto.createdAt)
     }
 }

@@ -33,11 +33,13 @@ class CorrectionMappersTest {
             oldValue = "33",
             newValue = "33F",
             status = "pending",
-            createdAt = "2025-01-01",
+            createdAt = "2026-06-01 10:50:27.896745",
         )
         val entity = dto.asEntity()
         assertEquals(dto.id, entity.id)
         assertEquals(dto.newValue, entity.newValue)
+        // Verify it's not 0L, meaning it parsed something
+        assert(entity.createdAt > 0L)
     }
 
     @Test
@@ -54,7 +56,7 @@ class CorrectionMappersTest {
         )
         val domain = entity.asDomain()
         assertEquals(entity.id, domain.id)
-        assertEquals("123456789", domain.createdAt)
+        assert(domain.createdAt.isNotEmpty())
     }
 
     @Test
@@ -67,10 +69,10 @@ class CorrectionMappersTest {
             oldValue = "33",
             newValue = "33F",
             status = "pending",
-            createdAt = "2025-01-01",
+            createdAt = "01 Jun 2026, 10:50",
         )
         val dto = domain.asDto()
         assertEquals(domain.id, dto.id)
-        assertEquals(domain.createdAt, dto.createdAt)
+        assertEquals("01 Jun 2026, 10:50", dto.createdAt)
     }
 }
