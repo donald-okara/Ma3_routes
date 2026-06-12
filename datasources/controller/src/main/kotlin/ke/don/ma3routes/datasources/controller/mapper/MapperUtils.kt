@@ -21,8 +21,9 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
+const val INVALID_TIMESTAMP = -1L
 private val remoteFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
-private val humanFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm")
+private val prettierFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm")
 
 /**
  * Extension function to parse a timestamp string into epoch milliseconds.
@@ -36,11 +37,11 @@ fun String.toEpochMillis(): Long {
     } catch (e: Exception) {
         // Try parsing as human readable if remote fails
         try {
-            LocalDateTime.parse(this, humanFormatter)
+            LocalDateTime.parse(this, prettierFormatter)
                 .toInstant(ZoneOffset.UTC)
                 .toEpochMilli()
         } catch (e2: Exception) {
-            this.toLongOrNull() ?: 0L
+            this.toLongOrNull() ?: INVALID_TIMESTAMP
         }
     }
 }
@@ -60,7 +61,7 @@ fun Long.toHumanReadable(): String {
     return try {
         Instant.ofEpochMilli(this)
             .atZone(ZoneId.systemDefault())
-            .format(humanFormatter)
+            .format(prettierFormatter)
     } catch (e: Exception) {
         this.toString()
     }

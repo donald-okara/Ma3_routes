@@ -15,6 +15,7 @@
  */
 package ke.don.ma3routes.datasources.remote.api
 
+import ke.don.ma3routes.datasources.remote.model.CorrectionDto
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -150,9 +151,96 @@ class Ma3ApiServiceTest {
 
         assertEquals(1, stageRoutes.size)
         assertEquals("boarding", stageRoutes[0].role)
-        assertEquals(0.9, stageRoutes[0].confidence, 0.0001)
+        assertEquals(0.9, stageRoutes[0].confidence!!, 0.0001)
 
         val request = mockWebServer.takeRequest()
         assertEquals("/stage-routes", request.path)
+    }
+
+    @Test
+    fun `getRoute returns a single route`() = runTest {
+        val responseBody = """
+            {
+                "id": "route-1",
+                "number": "33F",
+                "corridor": "Ngong",
+                "created_at": "2025-01-01T00:00:00Z"
+            }
+        """.trimIndent()
+
+        mockWebServer.enqueue(MockResponse().setBody(responseBody))
+
+        val route = apiService.getRoute("route-1")
+
+        assertEquals("route-1", route.id)
+        assertEquals("33F", route.number)
+
+        val request = mockWebServer.takeRequest()
+        assertEquals("/routes/route-1", request.path)
+    }
+
+    @Test
+    fun `getStage returns a single stage`() = runTest {
+        val responseBody = """
+            {
+                "id": "stage-1",
+                "name": "Kencom",
+                "area": "CBD",
+                "lat": -1.286389,
+                "lng": 36.821944,
+                "created_at": "2025-01-01T00:00:00Z"
+            }
+        """.trimIndent()
+
+        mockWebServer.enqueue(MockResponse().setBody(responseBody))
+
+        val stage = apiService.getStage("stage-1")
+
+        assertEquals("stage-1", stage.id)
+        assertEquals("Kencom", stage.name)
+
+        val request = mockWebServer.takeRequest()
+        assertEquals("/stages/stage-1", request.path)
+    }
+
+    @Test
+    fun `submitCorrection posts correction and returns it`() = runTest {
+        val correctionDto = CorrectionDto(
+            id = 1L,
+            entityType = "route",
+            entityId = "route-1",
+            field = "number",
+            oldValue = "33",
+            newValue = "33F",
+            status = "pending",
+            createdAt = "2025-01-01T00:00:00Z"
+        )
+        val responseBody = """
+            {
+                "id": 1,
+                "entity_type": "route",
+                "entity_id": "route-1",
+                "field": "number",
+                "old_value": "33",
+                "new_value": "33F",
+                "status": "pending",
+                "created_at": "2025-01-01T00:00:00Z"
+            }
+        """.trimIndent()
+
+        mockWebServer.enqueue(MockResponse().setBody(responseBody))
+
+        val result = apiService.submitCorrection(correctionDto)
+
+        assertEquals(1L, result.id)
+        assertEquals("route-1", result.entityId)
+        assertEquals("33F", result.newValue)
+
+        val request = mockWebServer.takeRequest()
+        assertEquals("/corrections", request.path)
+        assertEquals("POST", request.method)
+        val requestBody = request.body.readUtf8()
+        assert(requestBody.contains("\"entity_id\":\"route-1\""))
+        assert(requestBody.contains("\"new_value\":\"33F\""))
     }
 }
