@@ -47,6 +47,10 @@ Shared infrastructure used across the entire application.
     - **Theme:** Design system implementation (Colors, Typography, Shapes).
     - **Components:** Reusable UI elements.
     - **Navigation:** App-wide navigation logic (not location-based).
+- **Resources:**
+    - Shared Android resources that need to be reachable outside UI code, such as fonts, notification assets, and other cross-module resource IDs.
+    - Exposes resource IDs through `ke.don.ma3routes.core.resources.Resources`.
+    - App launcher icons remain app-owned and should not be moved into `core:resources`.
 - **Domain:**
     - Holds the "Source of Truth" models.
     - Includes **Mappers** to convert between DTOs (Data Transfer Objects), Domain models, and Database Entities.
@@ -78,7 +82,7 @@ The `sync` module runs periodically in the background. It interacts with the **C
 The architecture follows a strict dependency hierarchy:
 - **Features** depend on **Core** and **Datasources** (via the Controller).
 - **Sync** (within Datasources) depends on the **Controller** to perform data reconciliation.
-- **Domain** (within Core) is the most stable layer and has no outgoing dependencies.
+- **Resources** (within Core) is the shared resource boundary used by all app modules.
 
 ---
 
@@ -111,6 +115,7 @@ graph TD
     subgraph Core
         analytics[":core:analytics"]
         domain[":core:domain"]
+        resources[":core:resources"]
         ui[":core:ui"]
     end
 
@@ -125,15 +130,18 @@ graph TD
     app --> auth & prefs & profile
     app --> r_details & r_list
     app --> s_list & s_nav
-    app --> analytics & domain & ui & sync
+    app --> analytics & domain & resources & ui & sync
 
     %% sync dependencies
     sync --> controller
-    sync --> domain & analytics
+    sync --> domain & analytics & resources
 
     %% features dependencies (via AndroidFeatureConventionPlugin)
-    auth & prefs & profile & r_details & r_list & s_list & s_nav --> analytics & domain & ui & controller
+    auth & prefs & profile & r_details & r_list & s_list & s_nav --> analytics & domain & resources & ui & controller
 
     %% Controller dependencies
-    controller --> local & remote & domain
+    controller --> local & remote & domain & resources
+
+    %% Shared module dependencies
+    analytics & domain & ui & local & remote --> resources
 ```

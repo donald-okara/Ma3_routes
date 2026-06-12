@@ -24,6 +24,8 @@ This design system utilizes **Inter** for its exceptional legibility and systema
 - **Body:** Standardized for distances, fare estimates, and instructional text.
 - **Labels:** Small, all-caps styling for metadata like "NEXT STAGE" or "EST. TIME," ensuring they are distinct from primary information.
 
+Inter is stored in `:core:resources` and exposed through `ke.don.ma3routes.core.resources.Resources`. UI code should consume those IDs instead of owning font files directly; app launcher assets remain in the app resource set.
+
 ## Layout & Spacing
 
 The layout follows a **Fluid Grid** model designed primarily for one-handed mobile use. 

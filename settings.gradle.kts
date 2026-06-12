@@ -42,6 +42,7 @@ include(":datasources:controller")
 include(":datasources:sync")
 
 // Core
+include(":core:resources")
 include(":core:ui")
 include(":core:domain")
 include(":core:analytics")
