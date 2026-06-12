@@ -123,7 +123,6 @@ fun ThemeShowcase() {
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     ButtonsCard()
-                    ProgressCard()
                     IconButtonsCard()
                 }
 
@@ -244,36 +243,6 @@ fun ButtonsCard() {
                     type = type,
                     onClick = {}
                 )
-            }
-        }
-    }
-}
-
-@Composable
-fun ProgressCard() {
-    Ma3Card(
-        modifier = Modifier.fillMaxWidth().height(120.dp),
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp).fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.Start
-        ) {
-            repeat(3) { index ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth(if (index == 0) 0.7f else if (index == 1) 0.9f else 0.5f)
-                        .height(6.dp)
-                        .clip(CircleShape)
-                        .background(
-                            when(index) {
-                                0 -> MaterialTheme.colorScheme.primary
-                                1 -> MaterialTheme.colorScheme.secondary
-                                else -> MaterialTheme.colorScheme.tertiary
-                            }
-                        )
-                )
-                if (index < 2) Spacer(modifier = Modifier.height(12.dp))
             }
         }
     }
