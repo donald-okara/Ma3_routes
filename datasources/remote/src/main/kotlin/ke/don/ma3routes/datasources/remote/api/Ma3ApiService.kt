@@ -15,9 +15,35 @@
  */
 package ke.don.ma3routes.datasources.remote.api
 
+import ke.don.ma3routes.datasources.remote.model.CorrectionDto
+import ke.don.ma3routes.datasources.remote.model.RouteDto
+import ke.don.ma3routes.datasources.remote.model.RouteDestinationDto
+import ke.don.ma3routes.datasources.remote.model.StageDto
+import ke.don.ma3routes.datasources.remote.model.StageRouteDto
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface Ma3ApiService {
     @GET("routes")
-    suspend fun getRoutes(): List<String> // Placeholder return type
+    suspend fun getRoutes(): List<RouteDto>
+
+    @GET("routes/{id}")
+    suspend fun getRoute(@Path("id") id: String): RouteDto
+
+    @GET("stages")
+    suspend fun getStages(): List<StageDto>
+
+    @GET("stages/{id}")
+    suspend fun getStage(@Path("id") id: String): StageDto
+
+    @GET("route-destinations")
+    suspend fun getRouteDestinations(): List<RouteDestinationDto>
+
+    @GET("stage-routes")
+    suspend fun getStageRoutes(): List<StageRouteDto>
+
+    @POST("corrections")
+    suspend fun submitCorrection(@Body correction: CorrectionDto): CorrectionDto
 }
