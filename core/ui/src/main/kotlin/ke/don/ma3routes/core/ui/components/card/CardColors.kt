@@ -5,9 +5,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 
 @Composable
-fun cardColorsFor(type: CardType): CardColors {
-    return when(type){
-        CardType.Outlined -> CardDefaults.outlinedCardColors()
-        CardType.Filled -> CardDefaults.cardColors()
-    }
+fun cardColorsFor(type: CardType): CardColors = when (type) {
+    CardType.Outlined -> CardDefaults.outlinedCardColors()
+    CardType.Filled -> CardDefaults.cardColors()
 }

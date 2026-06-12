@@ -8,5 +8,5 @@ enum class ButtonType {
     Secondary,
     Tertiary,
     Outlined,
-    Danger
+    Danger,
 }

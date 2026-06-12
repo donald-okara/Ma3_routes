@@ -8,7 +8,7 @@ import androidx.compose.ui.text.font.FontWeight
 import ke.don.ma3routes.core.resources.Resources
 
 val Inter = FontFamily(
-    Font(Resources.Fonts.interRegular, FontWeight.Normal)
+    Font(Resources.Fonts.interRegular, FontWeight.Normal),
 )
 
 val baseline = Typography()

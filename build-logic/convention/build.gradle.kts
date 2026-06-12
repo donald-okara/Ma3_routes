@@ -15,6 +15,8 @@ kotlin {
 }
 dependencies {
     compileOnly(libs.android.gradlePlugin)
+    compileOnly(libs.hilt.android.gradlePlugin)
+    compileOnly(libs.ksp.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
 }
 gradlePlugin {
@@ -34,6 +36,10 @@ gradlePlugin {
         register("androidCompose") {
             id = libs.plugins.ma3.android.compose.get().pluginId
             implementationClass = "ke.don.convention.AndroidComposeConventionPlugin"
+        }
+        register("hilt") {
+            id = libs.plugins.ma3.hilt.convention.get().pluginId
+            implementationClass = "ke.don.convention.HiltConventionPlugin"
         }
     }
 }

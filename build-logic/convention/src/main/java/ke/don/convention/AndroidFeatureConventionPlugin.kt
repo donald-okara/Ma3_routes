@@ -11,6 +11,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             pluginManager.apply {
                 apply("ma3.android.library")
                 apply("ma3.android.compose")
+                apply("ma3.hilt")
             }
 
             dependencies {
