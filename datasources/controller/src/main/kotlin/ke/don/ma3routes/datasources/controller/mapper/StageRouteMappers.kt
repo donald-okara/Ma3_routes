@@ -23,9 +23,9 @@ fun StageRouteDto.asEntity(): StageRouteEntity = StageRouteEntity(
     id = id,
     stageId = stageId,
     routeId = routeId,
-    role = role,
-    confidence = confidence.toFloat(),
-    source = source,
+    role = role ?: "boarding",
+    confidence = (confidence ?: 1.0).toFloat(),
+    source = source ?: "system",
 )
 
 fun StageRouteEntity.asDomain(): StageRouteDomain = StageRouteDomain(
@@ -41,9 +41,9 @@ fun StageRouteDto.asDomain(): StageRouteDomain = StageRouteDomain(
     id = id,
     stageId = stageId,
     routeId = routeId,
-    role = role,
-    confidence = confidence,
-    source = source,
+    role = role ?: "boarding",
+    confidence = confidence ?: 1.0,
+    source = source ?: "system",
 )
 
 fun StageRouteDomain.asEntity(): StageRouteEntity = StageRouteEntity(

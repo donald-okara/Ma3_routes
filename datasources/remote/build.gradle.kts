@@ -20,6 +20,10 @@ plugins {
 
 android {
     namespace = "ke.don.ma3routes.datasources.remote"
+
+    defaultConfig {
+        buildConfigField("String", "API_BASE_URL", "\"https://api.ma3routes.ke/\"")
+    }
 }
 
 dependencies {

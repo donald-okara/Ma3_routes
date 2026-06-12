@@ -23,7 +23,7 @@ fun RouteDestinationDto.asEntity(): RouteDestinationEntity = RouteDestinationEnt
     id = id,
     routeId = routeId,
     destination = destination,
-    variant = variant,
+    variant = variant ?: "",
     destinations = routeDestinations,
 )
 
@@ -31,7 +31,7 @@ fun RouteDestinationEntity.asDomain(): RouteDestinationDomain = RouteDestination
     id = id,
     routeId = routeId,
     destination = destination,
-    variant = variant,
+    variant = variant.ifEmpty { null },
     routeDestinations = destinations,
 )
 
@@ -47,7 +47,7 @@ fun RouteDestinationDomain.asEntity(): RouteDestinationEntity = RouteDestination
     id = id,
     routeId = routeId,
     destination = destination,
-    variant = variant,
+    variant = variant ?: "",
     destinations = routeDestinations,
 )
 

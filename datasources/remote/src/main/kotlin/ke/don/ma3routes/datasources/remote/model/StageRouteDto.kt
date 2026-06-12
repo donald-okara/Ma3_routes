@@ -28,9 +28,9 @@ data class StageRouteDto(
     @SerializedName("route_id")
     val routeId: String,
     @SerializedName("role")
-    val role: String = "boarding",
+    val role: String?,
     @SerializedName("confidence")
-    val confidence: Double = 1.0,
+    val confidence: Double?,
     @SerializedName("source")
-    val source: String = "system",
+    val source: String?,
 )

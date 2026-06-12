@@ -39,6 +39,22 @@ class StageRouteMappersTest {
     }
 
     @Test
+    fun `StageRouteDto with nulls asEntity uses defaults`() {
+        val dto = StageRouteDto(
+            id = 1L,
+            stageId = "s1",
+            routeId = "r1",
+            role = null,
+            confidence = null,
+            source = null,
+        )
+        val entity = dto.asEntity()
+        assertEquals("boarding", entity.role)
+        assertEquals(1.0f, entity.confidence)
+        assertEquals("system", entity.source)
+    }
+
+    @Test
     fun `StageRouteEntity asDomain maps correctly`() {
         val entity = StageRouteEntity(
             id = 1L,
@@ -65,6 +81,6 @@ class StageRouteMappersTest {
         )
         val dto = domain.asDto()
         assertEquals(domain.id, dto.id)
-        assertEquals(0.9, dto.confidence, 0.0001)
+        assertEquals(0.9, dto.confidence ?: 0.0, 0.0001)
     }
 }
