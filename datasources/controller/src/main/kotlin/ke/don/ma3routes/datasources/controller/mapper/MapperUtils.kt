@@ -29,20 +29,18 @@ private val prettierFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm"
  * Extension function to parse a timestamp string into epoch milliseconds.
  * Sample format: 2026-06-01 10:50:27.896745
  */
-fun String.toEpochMillis(): Long {
-    return try {
-        LocalDateTime.parse(this, remoteFormatter)
+fun String.toEpochMillis(): Long = try {
+    LocalDateTime.parse(this, remoteFormatter)
+        .toInstant(ZoneOffset.UTC)
+        .toEpochMilli()
+} catch (e: Exception) {
+    // Try parsing as human readable if remote fails
+    try {
+        LocalDateTime.parse(this, prettierFormatter)
             .toInstant(ZoneOffset.UTC)
             .toEpochMilli()
-    } catch (e: Exception) {
-        // Try parsing as human readable if remote fails
-        try {
-            LocalDateTime.parse(this, prettierFormatter)
-                .toInstant(ZoneOffset.UTC)
-                .toEpochMilli()
-        } catch (e2: Exception) {
-            this.toLongOrNull() ?: INVALID_TIMESTAMP
-        }
+    } catch (e2: Exception) {
+        this.toLongOrNull() ?: INVALID_TIMESTAMP
     }
 }
 
@@ -57,12 +55,10 @@ fun String.toHumanReadable(): String {
 /**
  * Extension function to format epoch milliseconds to a human-readable format.
  */
-fun Long.toHumanReadable(): String {
-    return try {
-        Instant.ofEpochMilli(this)
-            .atZone(ZoneId.systemDefault())
-            .format(prettierFormatter)
-    } catch (e: Exception) {
-        this.toString()
-    }
+fun Long.toHumanReadable(): String = try {
+    Instant.ofEpochMilli(this)
+        .atZone(ZoneId.systemDefault())
+        .format(prettierFormatter)
+} catch (e: Exception) {
+    this.toString()
 }

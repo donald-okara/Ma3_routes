@@ -213,7 +213,7 @@ class Ma3ApiServiceTest {
             oldValue = "33",
             newValue = "33F",
             status = "pending",
-            createdAt = "2025-01-01T00:00:00Z"
+            createdAt = "2025-01-01T00:00:00Z",
         )
         val responseBody = """
             {
