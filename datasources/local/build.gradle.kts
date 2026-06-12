@@ -16,6 +16,7 @@
 plugins {
     alias(libs.plugins.ma3.android.library)
     alias(libs.plugins.ma3.hilt.convention)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -24,4 +25,8 @@ android {
 
 dependencies {
     implementation(project(":core:resources"))
+
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 }

@@ -24,4 +24,9 @@ android {
 
 dependencies {
     implementation(project(":core:resources"))
+
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging)
 }
