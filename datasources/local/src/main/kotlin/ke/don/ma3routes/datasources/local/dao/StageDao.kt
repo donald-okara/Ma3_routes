@@ -13,25 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.library)
-    alias(libs.plugins.ma3.hilt.convention)
-    alias(libs.plugins.ksp)
-}
+package ke.don.ma3routes.datasources.local.dao
 
-android {
-    namespace = "ke.don.ma3routes.datasources.local"
-}
+import androidx.room.Dao
+import androidx.room.Query
+import ke.don.ma3routes.datasources.local.entities.StageEntity
+import kotlinx.coroutines.flow.Flow
 
-dependencies {
-    implementation(project(":core:resources"))
+@Dao
+interface StageDao : BaseDao<StageEntity> {
+    @Query("SELECT * FROM stages")
+    fun getAllStages(): Flow<List<StageEntity>>
 
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    testImplementation(libs.androidx.room.testing)
-    testImplementation(libs.androidx.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+    @Query("SELECT * FROM stages WHERE id = :id")
+    suspend fun getStageById(id: String): StageEntity?
 }

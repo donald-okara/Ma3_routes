@@ -13,25 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.library)
-    alias(libs.plugins.ma3.hilt.convention)
-    alias(libs.plugins.ksp)
-}
+package ke.don.ma3routes.datasources.local.database
 
-android {
-    namespace = "ke.don.ma3routes.datasources.local"
-}
+import androidx.room.TypeConverter
 
-dependencies {
-    implementation(project(":core:resources"))
+class Converters {
+    @TypeConverter
+    fun fromString(value: String): List<String> {
+        return value.split(",").map { it.trim() }
+    }
 
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    testImplementation(libs.androidx.room.testing)
-    testImplementation(libs.androidx.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+    @TypeConverter
+    fun fromList(list: List<String>): String {
+        return list.joinToString(",")
+    }
 }

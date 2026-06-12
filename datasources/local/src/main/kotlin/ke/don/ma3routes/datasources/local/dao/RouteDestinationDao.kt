@@ -13,25 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.library)
-    alias(libs.plugins.ma3.hilt.convention)
-    alias(libs.plugins.ksp)
-}
+package ke.don.ma3routes.datasources.local.dao
 
-android {
-    namespace = "ke.don.ma3routes.datasources.local"
-}
+import androidx.room.Dao
+import androidx.room.Query
+import ke.don.ma3routes.datasources.local.entities.RouteDestinationEntity
+import kotlinx.coroutines.flow.Flow
 
-dependencies {
-    implementation(project(":core:resources"))
-
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    testImplementation(libs.androidx.room.testing)
-    testImplementation(libs.androidx.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+@Dao
+interface RouteDestinationDao : BaseDao<RouteDestinationEntity> {
+    @Query("SELECT * FROM route_destinations WHERE route_id = :routeId")
+    fun getDestinationsForRoute(routeId: String): Flow<List<RouteDestinationEntity>>
 }

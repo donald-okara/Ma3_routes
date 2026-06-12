@@ -13,25 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.library)
-    alias(libs.plugins.ma3.hilt.convention)
-    alias(libs.plugins.ksp)
-}
+package ke.don.ma3routes.datasources.remote.api
 
-android {
-    namespace = "ke.don.ma3routes.datasources.local"
-}
+import retrofit2.http.GET
 
-dependencies {
-    implementation(project(":core:resources"))
-
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    testImplementation(libs.androidx.room.testing)
-    testImplementation(libs.androidx.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+interface Ma3ApiService {
+    @GET("routes")
+    suspend fun getRoutes(): List<String> // Placeholder return type
 }
