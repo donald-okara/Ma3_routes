@@ -28,10 +28,10 @@ Inter is stored in `:core:resources` and exposed through `ke.don.ma3routes.core.
 
 ## Layout & Spacing
 
-The layout follows a **Fluid Grid** model designed primarily for one-handed mobile use. 
+The layout follows a **Fluid Grid** model designed primarily for one-handed mobile use.
 
 - **Edge Margins:** A consistent 16px margin on the left and right of the screen ensures content doesn't bleed into the physical edges of the device.
-- **Vertical Rhythm:** A 4px baseline grid is used to maintain tight, organized stacks of information. 
+- **Vertical Rhythm:** A 4px baseline grid is used to maintain tight, organized stacks of information.
 - **Touch Targets:** All interactive elements (buttons, list items, search bars) must maintain a minimum height of 48px to accommodate fast-paced interactions.
 - **Information Density:** High density is permitted for "Stage Lists," while "Navigation View" uses increased whitespace (24px+ stacks) to minimize cognitive load during movement.
 

@@ -7,7 +7,7 @@ This roadmap outlines the phased development of the Ma3routes application, focus
 ## Phase 1: Foundation & Core Infrastructure
 *Goal: Establish the architectural backbone and design system.*
 
-- **1.1 Project Scaffolding**
+- **1.1 Project Scaffolding** _Complete_
     - Setup multi-module structure (Core, Features, Datasources).
     - Configure Dependency Injection (Hilt/Koin).
     - Establish CI/CD pipelines and linting rules.

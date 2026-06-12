@@ -1,3 +1,18 @@
+/*
+ * Copyright 2025 Donald Isoe
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package ke.don.ma3routes.core.ui.theme.preview
 
 import androidx.compose.foundation.background
@@ -63,19 +78,19 @@ fun ThemeShowcase() {
     Ma3RoutesTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+            color = MaterialTheme.colorScheme.background,
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxSize()
                     .horizontalScroll(rememberScrollState())
                     .padding(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 // Column 1: Colors
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     ColorCard("Primary Container", MaterialTheme.colorScheme.primaryContainer)
                     ColorCard("Secondary Container", MaterialTheme.colorScheme.secondaryContainer)
@@ -105,14 +120,14 @@ fun ThemeShowcase() {
                     modifier = Modifier
                         .weight(1f)
                         .verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     typographyItems.forEach { (name, style) ->
                         TypographyCard(
                             title = name,
                             font = "Inter",
                             sample = "Aa",
-                            style = style
+                            style = style,
                         )
                     }
                 }
@@ -120,7 +135,7 @@ fun ThemeShowcase() {
                 // Column 3: Components A
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     ButtonsCard()
                     IconButtonsCard()
@@ -129,7 +144,7 @@ fun ThemeShowcase() {
                 // Column 4: Components B
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     SearchBarCard()
                     ActionIconsCard()
@@ -145,17 +160,25 @@ fun ThemeShowcase() {
 @Composable
 fun ColorCard(title: String, color: Color) {
     Ma3Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(title, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
+                Text(
+                    title,
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.Bold,
+                )
                 val hex = "#" + "%06X".format(color.toArgb() and 0xFFFFFF)
-                Text(hex, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f))
+                Text(
+                    hex,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                )
             }
             Spacer(modifier = Modifier.height(12.dp))
             Box(
@@ -163,19 +186,19 @@ fun ColorCard(title: String, color: Color) {
                     .fillMaxWidth()
                     .height(60.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(color)
+                    .background(color),
             )
             Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(2.dp)
+                horizontalArrangement = Arrangement.spacedBy(2.dp),
             ) {
                 repeat(10) { index ->
                     Box(
                         modifier = Modifier
                             .weight(1f)
                             .height(20.dp)
-                            .background(color.copy(alpha = (index + 1) / 10f))
+                            .background(color.copy(alpha = (index + 1) / 10f)),
                     )
                 }
             }
@@ -184,35 +207,49 @@ fun ColorCard(title: String, color: Color) {
 }
 
 @Composable
-fun TypographyCard(title: String, font: String, sample: String, style: TextStyle, type: CardType = CardType.Filled) {
+fun TypographyCard(
+    title: String,
+    font: String,
+    sample: String,
+    style: TextStyle,
+    type: CardType = CardType.Filled,
+) {
     Ma3Card(
         modifier = Modifier.fillMaxWidth().height(120.dp),
-        type = type
+        type = type,
     ) {
         Box(modifier = Modifier.padding(16.dp).fillMaxSize()) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Text(title, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f))
-                Text(font, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f))
+                Text(
+                    title,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                )
+                Text(
+                    font,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                )
             }
             Text(
                 text = sample,
                 modifier = Modifier.align(Alignment.Center),
                 style = style,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
         }
     }
 }
 
 @Composable
-fun RowScope.CardsShowcase(){
+fun RowScope.CardsShowcase() {
     Column(
         modifier = Modifier.weight(1f),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ){
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
         val text = "Aa" to MaterialTheme.typography.displayLarge
 
         CardType.entries.forEach { type ->
@@ -221,7 +258,7 @@ fun RowScope.CardsShowcase(){
                 title = type.name,
                 sample = text.first,
                 style = text.second,
-                type = type
+                type = type,
             )
         }
     }
@@ -235,13 +272,13 @@ fun ButtonsCard() {
         FlowRow(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
-            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start)
+            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
         ) {
             ButtonType.entries.forEach { type ->
                 Ma3Button(
                     text = type.name,
                     type = type,
-                    onClick = {}
+                    onClick = {},
                 )
             }
         }
@@ -252,18 +289,18 @@ fun ButtonsCard() {
 fun IconButtonsCard() {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Ma3Card(
             modifier = Modifier.size(80.dp),
         ) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Ma3IconButton(
-                    onClick = {}
+                    onClick = {},
                 ) {
                     Icon(
                         imageVector = Icons.Default.Edit,
-                        contentDescription = ""
+                        contentDescription = "",
                     )
                 }
             }
@@ -275,7 +312,11 @@ fun IconButtonsCard() {
                 Ma3Button(
                     onClick = {},
                 ) {
-                    Icon(Icons.Default.Edit, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Icon(
+                        Icons.Default.Edit,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp),
+                    )
                     Text("Label", style = MaterialTheme.typography.labelLarge)
                 }
             }
@@ -288,7 +329,7 @@ fun SearchBarCard() {
     Card(
         modifier = Modifier.fillMaxWidth().height(120.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        shape = RoundedCornerShape(24.dp)
+        shape = RoundedCornerShape(24.dp),
     ) {
         Box(modifier = Modifier.padding(16.dp).fillMaxSize(), contentAlignment = Alignment.Center) {
             Box(
@@ -298,12 +339,21 @@ fun SearchBarCard() {
                     .clip(RoundedCornerShape(12.dp))
                     .background(MaterialTheme.colorScheme.surface)
                     .padding(horizontal = 16.dp),
-                contentAlignment = Alignment.CenterStart
+                contentAlignment = Alignment.CenterStart,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.Search, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f), modifier = Modifier.size(20.dp))
+                    Icon(
+                        Icons.Default.Search,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                        modifier = Modifier.size(20.dp),
+                    )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Search", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f))
+                    Text(
+                        "Search",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                    )
                 }
             }
         }
@@ -315,25 +365,25 @@ fun ActionIconsCard() {
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        shape = RoundedCornerShape(24.dp)
+        shape = RoundedCornerShape(24.dp),
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
                 "Action Buttons",
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
             )
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 ButtonType.entries.forEach { type ->
                     Ma3IconButton(
                         type = type,
-                        onClick = {}
+                        onClick = {},
                     ) {
                         Icon(
                             imageVector = when (type) {
@@ -344,7 +394,7 @@ fun ActionIconsCard() {
                                 ButtonType.Outlined -> Icons.Default.MoreVert
                             },
                             contentDescription = null,
-                            modifier = Modifier.size(20.dp)
+                            modifier = Modifier.size(20.dp),
                         )
                     }
                 }
@@ -353,25 +403,45 @@ fun ActionIconsCard() {
             Text(
                 "Static Icons",
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
             )
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 val iconItems = listOf(
-                    Triple(Icons.Default.DirectionsBus, MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.onPrimary),
-                    Triple(Icons.Default.Place, MaterialTheme.colorScheme.secondary, MaterialTheme.colorScheme.onSecondary),
-                    Triple(Icons.Default.Schedule, MaterialTheme.colorScheme.tertiary, MaterialTheme.colorScheme.onTertiary),
-                    Triple(Icons.Default.Warning, MaterialTheme.colorScheme.error, MaterialTheme.colorScheme.onError),
-                    Triple(Icons.Default.Edit, MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.onSurface),
+                    Triple(
+                        Icons.Default.DirectionsBus,
+                        MaterialTheme.colorScheme.primary,
+                        MaterialTheme.colorScheme.onPrimary,
+                    ),
+                    Triple(
+                        Icons.Default.Place,
+                        MaterialTheme.colorScheme.secondary,
+                        MaterialTheme.colorScheme.onSecondary,
+                    ),
+                    Triple(
+                        Icons.Default.Schedule,
+                        MaterialTheme.colorScheme.tertiary,
+                        MaterialTheme.colorScheme.onTertiary,
+                    ),
+                    Triple(
+                        Icons.Default.Warning,
+                        MaterialTheme.colorScheme.error,
+                        MaterialTheme.colorScheme.onError,
+                    ),
+                    Triple(
+                        Icons.Default.Edit,
+                        MaterialTheme.colorScheme.surface,
+                        MaterialTheme.colorScheme.onSurface,
+                    ),
                 )
 
                 iconItems.forEach { (icon, color, onColor) ->
                     Ma3Icon(
                         icon = icon,
                         color = color,
-                        onColor = onColor
+                        onColor = onColor,
                     )
                 }
             }
@@ -380,7 +450,12 @@ fun ActionIconsCard() {
 }
 
 @Preview(name = "Light", widthDp = 1200, heightDp = 700)
-@Preview(name = "Dark", uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL, widthDp = 1200, heightDp = 700)
+@Preview(
+    name = "Dark",
+    uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL,
+    widthDp = 1200,
+    heightDp = 700,
+)
 @Composable
 fun ThemeShowcasePreview() {
     ThemeShowcase()

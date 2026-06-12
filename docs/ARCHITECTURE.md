@@ -18,7 +18,7 @@ The application adheres to the principle of **Dependency Inversion**, ensuring t
 ### 1. Features
 Each feature module contains its own UI, ViewModels, and Repositories.
 
-- **Routes:** 
+- **Routes:**
     - `list`: Overview of available matatu routes.
     - `details`: Detailed information about a specific route.
 - **Stages:**
@@ -100,12 +100,12 @@ graph TD
             prefs[":features:preferences"]
             profile[":features:profile"]
         end
-        
+
         subgraph "Routes"
             r_details[":features:routes:details"]
             r_list[":features:routes:list"]
         end
-        
+
         subgraph "Stages"
             s_list[":features:stages:list"]
             s_nav[":features:stages:navigation"]
