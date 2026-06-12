@@ -20,19 +20,20 @@ import androidx.compose.ui.unit.dp
 fun Ma3Icon(
     icon: ImageVector,
     color: Color = MaterialTheme.colorScheme.surface,
-    onColor: Color = MaterialTheme.colorScheme.onSurface
-){
+    onColor: Color = MaterialTheme.colorScheme.onSurface,
+) {
     Surface(
         color = color,
         contentColor = onColor,
         modifier = Modifier
-            .clip(CircleShape)
+            .clip(CircleShape),
     ) {
         Icon(
             icon,
             contentDescription = null,
             modifier = Modifier
                 .padding(8.dp)
-                .size(20.dp))
+                .size(20.dp),
+        )
     }
 }

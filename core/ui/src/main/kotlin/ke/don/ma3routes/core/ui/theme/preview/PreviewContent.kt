@@ -15,15 +15,17 @@ import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
 @PreviewLightDark
 @Composable
 fun PreviewContent(
-    content: (@Composable () -> Unit)? = { Text("Empty Preview", modifier = Modifier.fillMaxWidth()) }
-){
+    content: (@Composable () -> Unit)? = {
+        Text("Empty Preview", modifier = Modifier.fillMaxWidth())
+    },
+) {
     Ma3RoutesTheme {
         Surface {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .padding(8.dp)
-            ){
+                    .padding(8.dp),
+            ) {
                 content?.invoke()
             }
         }

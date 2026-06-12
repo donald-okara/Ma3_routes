@@ -21,9 +21,11 @@ fun Ma3Card(
     colors: CardColors = cardColorsFor(type),
     elevation: CardElevation = CardDefaults.cardElevation(),
     border: BorderStroke? =
-        if (type == CardType.Outlined)
+        if (type == CardType.Outlined) {
             CardDefaults.outlinedCardBorder()
-        else null,
+        } else {
+            null
+        },
     onClick: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -35,7 +37,7 @@ fun Ma3Card(
             elevation = elevation,
             border = border,
             onClick = onClick,
-            content = content
+            content = content,
         )
     } else {
         Card(
@@ -44,7 +46,7 @@ fun Ma3Card(
             colors = colors,
             elevation = elevation,
             border = border,
-            content = content
+            content = content,
         )
     }
 }

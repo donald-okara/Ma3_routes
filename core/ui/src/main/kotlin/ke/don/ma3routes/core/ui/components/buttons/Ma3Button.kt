@@ -58,7 +58,7 @@ fun Ma3Button(
         type = type,
     ) {
         Text(
-            text = text
+            text = text,
         )
     }
 }
@@ -90,12 +90,14 @@ fun Ma3Button(
     colors: ButtonColors = buttonColorsFor(type),
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
     border: BorderStroke? =
-        if (type == ButtonType.Outlined)
+        if (type == ButtonType.Outlined) {
             BorderStroke(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
             )
-        else null,
+        } else {
+            null
+        },
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource? = null,
     content: @Composable RowScope.() -> Unit,
@@ -112,7 +114,7 @@ fun Ma3Button(
         interactionSource = interactionSource,
     ) {
         ButtonContentSwitcher(
-            loading = loading
+            loading = loading,
         ) {
             content()
         }
@@ -124,16 +126,13 @@ fun Ma3Button(
  * It shows a loading indicator in the center while the original content is hidden but still occupies space.
  */
 @Composable
-fun ButtonContentSwitcher(
-    loading: Boolean,
-    content: @Composable RowScope.() -> Unit,
-) {
+fun ButtonContentSwitcher(loading: Boolean, content: @Composable RowScope.() -> Unit) {
     val density = LocalDensity.current
     var contentSize by remember { mutableStateOf(IntSize.Zero) }
 
     Box(
         contentAlignment = Alignment.Center,
-        propagateMinConstraints = true
+        propagateMinConstraints = true,
     ) {
         // Content is always present but hidden when loading to maintain size
         Row(
@@ -146,7 +145,7 @@ fun ButtonContentSwitcher(
                         contentSize = coords.size
                     }
                 }
-                .alpha(if (loading) 0f else 1f)
+                .alpha(if (loading) 0f else 1f),
         ) {
             content()
         }

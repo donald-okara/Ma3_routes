@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import ke.don.ma3routes.core.ui.components.buttons.ButtonType
 
-@Composable 
+@Composable
 fun Ma3IconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -20,7 +20,7 @@ fun Ma3IconButton(
     interactionSource: MutableInteractionSource? = null,
     shape: Shape = MaterialTheme.shapes.small,
     content: @Composable () -> Unit,
-){
+) {
     if (type != ButtonType.Outlined) {
         IconButton(
             onClick = onClick,
@@ -29,7 +29,7 @@ fun Ma3IconButton(
             colors = colors,
             interactionSource = interactionSource,
             shape = shape,
-            content = content
+            content = content,
         )
     } else {
         OutlinedIconButton(
@@ -39,8 +39,7 @@ fun Ma3IconButton(
             colors = colors,
             interactionSource = interactionSource,
             shape = shape,
-            content = content
+            content = content,
         )
     }
-
 }

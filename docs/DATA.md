@@ -14,17 +14,17 @@ Each route is a stable identity tied to a route number used by commuters.
 
 ## Fields
 
-- **id** (text, PK)  
+- **id** (text, PK)
   Stable internal identifier for the route.
 
-- **number** (text, unique, not null)  
+- **number** (text, unique, not null)
   Human-facing route label (e.g. `33F`, `111`, `46K`).
 
-- **corridor** (text, nullable)  
-  High-level directional grouping (e.g. Thika, Ngong, Jogoo).  
+- **corridor** (text, nullable)
+  High-level directional grouping (e.g. Thika, Ngong, Jogoo).
   Used for classification, not strict routing logic.
 
-- **created_at** (timestamp)  
+- **created_at** (timestamp)
   Record creation time.
 
 ---
@@ -37,22 +37,22 @@ Stages are the primary user-facing navigation anchors.
 
 ## Fields
 
-- **id** (text, PK)  
+- **id** (text, PK)
   Stable identifier for the stage.
 
-- **name** (text, not null)  
+- **name** (text, not null)
   Display name of the stage (e.g. Kencom, OTC, Ngara).
 
-- **area** (text, nullable)  
+- **area** (text, nullable)
   General locality or region (e.g. CBD, Westlands).
 
-- **lat** (float, nullable)  
+- **lat** (float, nullable)
   Geographic latitude for mapping.
 
-- **lng** (float, nullable)  
+- **lng** (float, nullable)
   Geographic longitude for mapping.
 
-- **created_at** (timestamp)  
+- **created_at** (timestamp)
   Record creation time.
 
 ---
@@ -65,23 +65,23 @@ A route may serve multiple destinations or variations (loop, express, alternate)
 
 ## Fields
 
-- **id** (bigint, PK)  
+- **id** (bigint, PK)
   Auto-generated identifier.
 
-- **route_id** (text, FK → routes.id)  
+- **route_id** (text, FK → routes.id)
   Associated route.
 
-- **destination** (text, not null)  
+- **destination** (text, not null)
   Endpoint or served location.
 
-- **variant** (text, nullable)  
+- **variant** (text, nullable)
   Optional qualifier describing route behavior:
     - loop
     - express
     - alternate
     - short
 
-- **route_destinations** (array of text)  
+- **route_destinations** (array of text)
   List of destinations served by this route variant.
 
 ---
@@ -94,25 +94,25 @@ This is the core graph structure of the system.
 
 ## Fields
 
-- **id** (bigint, PK)  
+- **id** (bigint, PK)
   Auto-generated identifier.
 
-- **stage_id** (text, FK → stages.id)  
+- **stage_id** (text, FK → stages.id)
   Stage where interaction occurs.
 
-- **route_id** (text, FK → routes.id)  
+- **route_id** (text, FK → routes.id)
   Route serving the stage.
 
-- **role** (text, default: `boarding`)  
+- **role** (text, default: `boarding`)
   Defines interaction type:
     - boarding
     - alighting
 
-- **confidence** (float, default: 1.0)  
-  Confidence score for data reliability.  
+- **confidence** (float, default: 1.0)
+  Confidence score for data reliability.
   Useful for inferred or crowdsourced entries.
 
-- **source** (text, default: `system`)  
+- **source** (text, default: `system`)
   Origin of the record:
     - system
     - user
@@ -128,34 +128,34 @@ Enables continuous dataset refinement through crowdsourcing.
 
 ## Fields
 
-- **id** (bigint, PK)  
+- **id** (bigint, PK)
   Auto-generated identifier.
 
-- **entity_type** (text)  
+- **entity_type** (text)
   Target entity type:
     - route
     - stage
     - stage_route
 
-- **entity_id** (text)  
+- **entity_id** (text)
   Identifier of affected entity.
 
-- **field** (text)  
+- **field** (text)
   Field being corrected.
 
-- **old_value** (text)  
+- **old_value** (text)
   Existing value in the system.
 
-- **new_value** (text)  
+- **new_value** (text)
   Proposed correction.
 
-- **status** (text, default: `pending`)  
+- **status** (text, default: `pending`)
   Review state:
     - pending
     - approved
     - rejected
 
-- **created_at** (timestamp)  
+- **created_at** (timestamp)
   Submission time.
 
 ---

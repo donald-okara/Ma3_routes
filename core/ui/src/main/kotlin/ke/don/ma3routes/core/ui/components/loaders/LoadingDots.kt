@@ -50,7 +50,7 @@ fun LoadingDots(
                     repeatMode = RepeatMode.Reverse,
                     initialStartOffset = StartOffset(offsetMillis = index * delayBetweenDots),
                 ),
-                label = "LoadingDotAlpha_$index"
+                label = "LoadingDotAlpha_$index",
             )
 
             Box(

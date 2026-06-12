@@ -12,7 +12,11 @@ spotless {
     kotlin {
         target("**/*.kt")
         targetExclude("**/build/**")
-        ktlint(libs.versions.ktlint.get())
+        ktlint(libs.versions.ktlint.get()).editorConfigOverride(
+            mapOf(
+                "ktlint_standard_function-naming" to "disabled",
+            ),
+        )
     }
 
     kotlinGradle {
