@@ -5,11 +5,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
-import ke.don.ma3routes.core.ui.R
+import ke.don.ma3routes.core.resources.Resources
 
 val Inter = FontFamily(
-    Font(R.font.inter_regular, FontWeight.Normal)
+    Font(Resources.Fonts.interRegular, FontWeight.Normal)
 )
 
 val baseline = Typography()

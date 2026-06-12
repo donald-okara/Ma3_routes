@@ -40,3 +40,4 @@ The project's visual specifications and prototypes can be found here:
 - **Language**: Kotlin
 - **UI Framework**: Jetpack Compose
 - **Theme**: Material 3
+- **Shared Resources**: `:core:resources` owns reusable resources such as fonts and exposes IDs through `Resources`; launcher icons stay app-owned.

@@ -15,6 +15,7 @@ dependencies {
     // Core
     implementation(project(":core:analytics"))
     implementation(project(":core:domain"))
+    implementation(project(":core:resources"))
     implementation(project(":datasources:sync"))
     implementation(project(":core:ui"))
 }

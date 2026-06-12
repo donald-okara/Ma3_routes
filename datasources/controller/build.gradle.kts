@@ -10,4 +10,5 @@ dependencies {
     implementation(project(":datasources:local"))
     implementation(project(":datasources:remote"))
     implementation(project(":core:domain"))
+    implementation(project(":core:resources"))
 }

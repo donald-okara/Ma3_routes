@@ -9,5 +9,6 @@ android {
 dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:analytics"))
+    implementation(project(":core:resources"))
     implementation(project(":datasources:controller"))
 }
