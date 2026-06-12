@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.library)
-    alias(libs.plugins.ma3.hilt.convention)
-    alias(libs.plugins.ksp)
-}
+package ke.don.ma3routes.datasources.remote.model
 
-android {
-    namespace = "ke.don.ma3routes.datasources.local"
-}
+import com.google.gson.annotations.SerializedName
 
-dependencies {
-    implementation(project(":core:resources"))
-
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    testImplementation(libs.androidx.room.testing)
-    testImplementation(libs.androidx.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
-}
+/**
+ * Network representation of the relationship between stages and routes.
+ */
+data class StageRouteDto(
+    @SerializedName("id")
+    val id: Long,
+    @SerializedName("stage_id")
+    val stageId: String,
+    @SerializedName("route_id")
+    val routeId: String,
+    @SerializedName("role")
+    val role: String?,
+    @SerializedName("confidence")
+    val confidence: Double?,
+    @SerializedName("source")
+    val source: String?,
+)

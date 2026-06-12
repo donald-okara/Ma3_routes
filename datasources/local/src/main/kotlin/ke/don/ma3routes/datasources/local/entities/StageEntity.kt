@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.library)
-    alias(libs.plugins.ma3.hilt.convention)
-    alias(libs.plugins.ksp)
-}
+package ke.don.ma3routes.datasources.local.entities
 
-android {
-    namespace = "ke.don.ma3routes.datasources.local"
-}
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-dependencies {
-    implementation(project(":core:resources"))
-
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    testImplementation(libs.androidx.room.testing)
-    testImplementation(libs.androidx.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
-}
+@Entity(tableName = "stages")
+data class StageEntity(
+    @PrimaryKey
+    val id: String,
+    @ColumnInfo(name = "name")
+    val name: String,
+    @ColumnInfo(name = "area")
+    val area: String?,
+    @ColumnInfo(name = "lat")
+    val lat: Double?,
+    @ColumnInfo(name = "lng")
+    val lng: Double?,
+    @ColumnInfo(name = "created_at")
+    val createdAt: Long = System.currentTimeMillis(),
+)

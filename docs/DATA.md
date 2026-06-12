@@ -1,6 +1,6 @@
 # Nairobi Matatu Transit Data Schema
 
-This schema models Nairobi’s informal matatu transit system as a relational graph. It is designed to support navigation, discovery, and crowdsourced correction of transit data.
+This [schema](../docs/schema.sql) models Nairobi’s informal matatu transit system as a relational graph. It is designed to support navigation, discovery, and crowdsourced correction of transit data.
 
 The model is intentionally flexible to accommodate inconsistent routing patterns, overlapping services, and evolving real-world behavior.
 

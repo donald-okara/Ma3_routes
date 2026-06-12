@@ -13,27 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.library)
-    alias(libs.plugins.ma3.hilt.convention)
-}
+package ke.don.ma3routes.datasources.local.database
 
-android {
-    namespace = "ke.don.ma3routes.datasources.remote"
+import androidx.room.TypeConverter
 
-    defaultConfig {
-        buildConfigField("String", "API_BASE_URL", "\"https://api.ma3routes.ke/\"")
+class Converters {
+    @TypeConverter
+    fun fromString(value: String): List<String> {
+        if (value.isEmpty()) return emptyList()
+        return value.split(",").map { it.trim() }
     }
-}
 
-dependencies {
-    implementation(project(":core:resources"))
-
-    implementation(libs.retrofit.core)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.okhttp.core)
-    implementation(libs.okhttp.logging)
-
-    testImplementation(libs.okhttp.mockwebserver)
-    testImplementation(libs.kotlinx.coroutines.test)
+    @TypeConverter
+    fun fromList(list: List<String>): String = list.joinToString(",")
 }
