@@ -19,6 +19,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import java.io.IOException
 import ke.don.ma3routes.datasources.local.database.Ma3Database
 import ke.don.ma3routes.datasources.local.entities.CorrectionEntity
 import ke.don.ma3routes.datasources.local.entities.RouteDestinationEntity
@@ -30,7 +31,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class CorrectionAndDestinationTest {
@@ -43,7 +43,8 @@ class CorrectionAndDestinationTest {
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, Ma3Database::class.java
+            context,
+            Ma3Database::class.java,
         ).allowMainThreadQueries()
             .build()
         correctionDao = db.correctionDao()
@@ -64,7 +65,7 @@ class CorrectionAndDestinationTest {
             entityId = "r1",
             field = "number",
             oldValue = "33",
-            newValue = "33F"
+            newValue = "33F",
         )
         correctionDao.insert(correction)
 
@@ -82,7 +83,7 @@ class CorrectionAndDestinationTest {
             routeId = "r1",
             destination = "Dagoretti",
             variant = "express",
-            destinations = listOf("Prestige", "Adams", "Dagoretti Corner")
+            destinations = listOf("Prestige", "Adams", "Dagoretti Corner"),
         )
         destinationDao.insert(destination)
 

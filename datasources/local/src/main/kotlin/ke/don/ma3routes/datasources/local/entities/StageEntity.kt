@@ -32,5 +32,5 @@ data class StageEntity(
     @ColumnInfo(name = "lng")
     val lng: Double?,
     @ColumnInfo(name = "created_at")
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
 )

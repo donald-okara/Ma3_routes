@@ -31,7 +31,7 @@ class StageMappersTest {
             area = "CBD",
             lat = -1.28,
             lng = 36.82,
-            createdAt = "2025-01-01"
+            createdAt = "2025-01-01",
         )
         val entity = dto.asEntity()
         assertEquals(dto.id, entity.id)
@@ -47,7 +47,7 @@ class StageMappersTest {
             area = "CBD",
             lat = -1.28,
             lng = 36.82,
-            createdAt = 123456789L
+            createdAt = 123456789L,
         )
         val domain = entity.asDomain()
         assertEquals(entity.id, domain.id)
@@ -63,7 +63,7 @@ class StageMappersTest {
             area = "CBD",
             lat = -1.28,
             lng = 36.82,
-            createdAt = "2025-01-01"
+            createdAt = "2025-01-01",
         )
         val dto = domain.asDto()
         assertEquals(domain.id, dto.id)

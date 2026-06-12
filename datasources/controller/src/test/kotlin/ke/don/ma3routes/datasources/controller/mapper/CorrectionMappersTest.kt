@@ -33,7 +33,7 @@ class CorrectionMappersTest {
             oldValue = "33",
             newValue = "33F",
             status = "pending",
-            createdAt = "2025-01-01"
+            createdAt = "2025-01-01",
         )
         val entity = dto.asEntity()
         assertEquals(dto.id, entity.id)
@@ -50,7 +50,7 @@ class CorrectionMappersTest {
             oldValue = "33",
             newValue = "33F",
             status = "pending",
-            createdAt = 123456789L
+            createdAt = 123456789L,
         )
         val domain = entity.asDomain()
         assertEquals(entity.id, domain.id)
@@ -67,7 +67,7 @@ class CorrectionMappersTest {
             oldValue = "33",
             newValue = "33F",
             status = "pending",
-            createdAt = "2025-01-01"
+            createdAt = "2025-01-01",
         )
         val dto = domain.asDto()
         assertEquals(domain.id, dto.id)

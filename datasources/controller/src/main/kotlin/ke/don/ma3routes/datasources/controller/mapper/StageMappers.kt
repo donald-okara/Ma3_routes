@@ -25,7 +25,7 @@ fun StageDto.asEntity(): StageEntity = StageEntity(
     area = area,
     lat = lat,
     lng = lng,
-    createdAt = 0L // TODO: Parse createdAt string to Long
+    createdAt = 0L, // TODO: Parse createdAt string to Long
 )
 
 fun StageEntity.asDomain(): StageDomain = StageDomain(
@@ -34,7 +34,7 @@ fun StageEntity.asDomain(): StageDomain = StageDomain(
     area = area,
     lat = lat,
     lng = lng,
-    createdAt = createdAt.toString()
+    createdAt = createdAt.toString(),
 )
 
 fun StageDto.asDomain(): StageDomain = StageDomain(
@@ -43,7 +43,7 @@ fun StageDto.asDomain(): StageDomain = StageDomain(
     area = area,
     lat = lat,
     lng = lng,
-    createdAt = createdAt
+    createdAt = createdAt,
 )
 
 fun StageDomain.asEntity(): StageEntity = StageEntity(
@@ -52,7 +52,7 @@ fun StageDomain.asEntity(): StageEntity = StageEntity(
     area = area,
     lat = lat,
     lng = lng,
-    createdAt = createdAt.toLongOrNull() ?: 0L
+    createdAt = createdAt.toLongOrNull() ?: 0L,
 )
 
 fun StageDomain.asDto(): StageDto = StageDto(
@@ -61,5 +61,5 @@ fun StageDomain.asDto(): StageDto = StageDto(
     area = area,
     lat = lat,
     lng = lng,
-    createdAt = createdAt
+    createdAt = createdAt,
 )

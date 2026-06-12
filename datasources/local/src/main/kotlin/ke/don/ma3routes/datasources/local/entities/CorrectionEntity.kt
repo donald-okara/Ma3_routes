@@ -36,5 +36,5 @@ data class CorrectionEntity(
     @ColumnInfo(name = "status")
     val status: String = "pending",
     @ColumnInfo(name = "created_at")
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
 )

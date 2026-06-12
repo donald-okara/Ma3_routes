@@ -31,7 +31,7 @@ class StageRouteMappersTest {
             routeId = "r1",
             role = "boarding",
             confidence = 0.9,
-            source = "user"
+            source = "user",
         )
         val entity = dto.asEntity()
         assertEquals(dto.id, entity.id)
@@ -46,7 +46,7 @@ class StageRouteMappersTest {
             routeId = "r1",
             role = "boarding",
             confidence = 0.9f,
-            source = "user"
+            source = "user",
         )
         val domain = entity.asDomain()
         assertEquals(entity.id, domain.id)
@@ -61,7 +61,7 @@ class StageRouteMappersTest {
             routeId = "r1",
             role = "boarding",
             confidence = 0.9,
-            source = "user"
+            source = "user",
         )
         val dto = domain.asDto()
         assertEquals(domain.id, dto.id)

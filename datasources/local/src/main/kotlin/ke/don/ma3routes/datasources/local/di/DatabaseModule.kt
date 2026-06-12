@@ -22,13 +22,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import ke.don.ma3routes.datasources.local.dao.CorrectionDao
 import ke.don.ma3routes.datasources.local.dao.RouteDao
 import ke.don.ma3routes.datasources.local.dao.RouteDestinationDao
 import ke.don.ma3routes.datasources.local.dao.StageDao
 import ke.don.ma3routes.datasources.local.dao.StageRouteDao
 import ke.don.ma3routes.datasources.local.database.Ma3Database
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -36,15 +36,12 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideMa3Database(
-        @ApplicationContext context: Context
-    ): Ma3Database {
-        return Room.databaseBuilder(
+    fun provideMa3Database(@ApplicationContext context: Context): Ma3Database =
+        Room.databaseBuilder(
             context,
             Ma3Database::class.java,
-            "ma3-database"
+            "ma3-database",
         ).build()
-    }
 
     @Provides
     fun provideRouteDao(database: Ma3Database): RouteDao = database.routeDao()
@@ -53,7 +50,8 @@ object DatabaseModule {
     fun provideStageDao(database: Ma3Database): StageDao = database.stageDao()
 
     @Provides
-    fun provideRouteDestinationDao(database: Ma3Database): RouteDestinationDao = database.routeDestinationDao()
+    fun provideRouteDestinationDao(database: Ma3Database): RouteDestinationDao =
+        database.routeDestinationDao()
 
     @Provides
     fun provideStageRouteDao(database: Ma3Database): StageRouteDao = database.stageRouteDao()

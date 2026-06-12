@@ -30,7 +30,7 @@ class RouteDestinationMappersTest {
             routeId = "r1",
             destination = "Ngong",
             variant = "express",
-            routeDestinations = listOf("A", "B")
+            routeDestinations = listOf("A", "B"),
         )
         val entity = dto.asEntity()
         assertEquals(dto.id, entity.id)
@@ -45,7 +45,7 @@ class RouteDestinationMappersTest {
             routeId = "r1",
             destination = "Ngong",
             variant = "express",
-            destinations = listOf("A", "B")
+            destinations = listOf("A", "B"),
         )
         val domain = entity.asDomain()
         assertEquals(entity.id, domain.id)
@@ -59,7 +59,7 @@ class RouteDestinationMappersTest {
             routeId = "r1",
             destination = "Ngong",
             variant = "express",
-            routeDestinations = listOf("A", "B")
+            routeDestinations = listOf("A", "B"),
         )
         val dto = domain.asDto()
         assertEquals(domain.id, dto.id)

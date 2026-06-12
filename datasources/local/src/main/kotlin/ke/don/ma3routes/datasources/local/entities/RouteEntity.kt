@@ -28,5 +28,5 @@ data class RouteEntity(
     @ColumnInfo(name = "corridor")
     val corridor: String?,
     @ColumnInfo(name = "created_at")
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
 )

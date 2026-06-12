@@ -28,19 +28,19 @@ import androidx.room.PrimaryKey
             entity = StageEntity::class,
             parentColumns = ["id"],
             childColumns = ["stage_id"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.CASCADE,
         ),
         ForeignKey(
             entity = RouteEntity::class,
             parentColumns = ["id"],
             childColumns = ["route_id"],
-            onDelete = ForeignKey.CASCADE
-        )
+            onDelete = ForeignKey.CASCADE,
+        ),
     ],
     indices = [
         Index(value = ["stage_id"]),
-        Index(value = ["route_id"])
-    ]
+        Index(value = ["route_id"]),
+    ],
 )
 data class StageRouteEntity(
     @PrimaryKey(autoGenerate = true)
@@ -54,5 +54,5 @@ data class StageRouteEntity(
     @ColumnInfo(name = "confidence")
     val confidence: Float = 1.0f,
     @ColumnInfo(name = "source")
-    val source: String = "system"
+    val source: String = "system",
 )

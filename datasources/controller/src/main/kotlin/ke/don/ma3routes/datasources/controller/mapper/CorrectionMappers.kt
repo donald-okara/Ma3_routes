@@ -27,7 +27,7 @@ fun CorrectionDto.asEntity(): CorrectionEntity = CorrectionEntity(
     oldValue = oldValue,
     newValue = newValue,
     status = status,
-    createdAt = 0L // TODO: Parse createdAt string to Long
+    createdAt = 0L, // TODO: Parse createdAt string to Long
 )
 
 fun CorrectionEntity.asDomain(): CorrectionDomain = CorrectionDomain(
@@ -38,7 +38,7 @@ fun CorrectionEntity.asDomain(): CorrectionDomain = CorrectionDomain(
     oldValue = oldValue,
     newValue = newValue,
     status = status,
-    createdAt = createdAt.toString()
+    createdAt = createdAt.toString(),
 )
 
 fun CorrectionDto.asDomain(): CorrectionDomain = CorrectionDomain(
@@ -49,7 +49,7 @@ fun CorrectionDto.asDomain(): CorrectionDomain = CorrectionDomain(
     oldValue = oldValue,
     newValue = newValue,
     status = status,
-    createdAt = createdAt
+    createdAt = createdAt,
 )
 
 fun CorrectionDomain.asEntity(): CorrectionEntity = CorrectionEntity(
@@ -60,7 +60,7 @@ fun CorrectionDomain.asEntity(): CorrectionEntity = CorrectionEntity(
     oldValue = oldValue,
     newValue = newValue,
     status = status,
-    createdAt = createdAt.toLongOrNull() ?: 0L
+    createdAt = createdAt.toLongOrNull() ?: 0L,
 )
 
 fun CorrectionDomain.asDto(): CorrectionDto = CorrectionDto(
@@ -71,5 +71,5 @@ fun CorrectionDomain.asDto(): CorrectionDto = CorrectionDto(
     oldValue = oldValue,
     newValue = newValue,
     status = status,
-    createdAt = createdAt
+    createdAt = createdAt,
 )

@@ -33,19 +33,23 @@ interface StageRouteDao : BaseDao<StageRouteEntity> {
     fun getStagesForRoute(routeId: String): Flow<List<StageRouteEntity>>
 
     @Transaction
-    @Query("""
+    @Query(
+        """
         SELECT * FROM routes
         INNER JOIN stage_routes ON routes.id = stage_routes.route_id
         WHERE stage_routes.stage_id = :stageId
-    """)
+    """,
+    )
     fun getDetailedRoutesForStage(stageId: String): Flow<List<RouteEntity>>
 
     @Transaction
-    @Query("""
+    @Query(
+        """
         SELECT * FROM stages
         INNER JOIN stage_routes ON stages.id = stage_routes.stage_id
         WHERE stage_routes.route_id = :routeId
-    """)
+    """,
+    )
     fun getDetailedStagesForRoute(routeId: String): Flow<List<StageEntity>>
 
     @Query("DELETE FROM stage_routes WHERE stage_id = :stageId AND route_id = :routeId")

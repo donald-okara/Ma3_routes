@@ -29,7 +29,7 @@ class RouteMappersTest {
             id = "1",
             number = "33",
             corridor = "Ngong",
-            createdAt = "2025-01-01"
+            createdAt = "2025-01-01",
         )
         val entity = dto.asEntity()
         assertEquals(dto.id, entity.id)
@@ -43,7 +43,7 @@ class RouteMappersTest {
             id = "1",
             number = "33",
             corridor = "Ngong",
-            createdAt = 123456789L
+            createdAt = 123456789L,
         )
         val domain = entity.asDomain()
         assertEquals(entity.id, domain.id)
@@ -58,7 +58,7 @@ class RouteMappersTest {
             id = "1",
             number = "33",
             corridor = "Ngong",
-            createdAt = "2025-01-01"
+            createdAt = "2025-01-01",
         )
         val domain = dto.asDomain()
         assertEquals(dto.id, domain.id)
@@ -73,7 +73,7 @@ class RouteMappersTest {
             id = "1",
             number = "33",
             corridor = "Ngong",
-            createdAt = "123456789"
+            createdAt = "123456789",
         )
         val entity = domain.asEntity()
         assertEquals(domain.id, entity.id)
@@ -88,7 +88,7 @@ class RouteMappersTest {
             id = "1",
             number = "33",
             corridor = "Ngong",
-            createdAt = "2025-01-01"
+            createdAt = "2025-01-01",
         )
         val dto = domain.asDto()
         assertEquals(domain.id, dto.id)

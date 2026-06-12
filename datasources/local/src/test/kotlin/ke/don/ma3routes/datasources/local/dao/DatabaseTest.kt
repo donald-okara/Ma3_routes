@@ -19,6 +19,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import java.io.IOException
 import ke.don.ma3routes.datasources.local.database.Ma3Database
 import ke.don.ma3routes.datasources.local.entities.RouteEntity
 import ke.don.ma3routes.datasources.local.entities.StageEntity
@@ -31,7 +32,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class DatabaseTest {
@@ -44,7 +44,8 @@ class DatabaseTest {
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, Ma3Database::class.java
+            context,
+            Ma3Database::class.java,
         ).allowMainThreadQueries() // Allowed for tests
             .build()
         routeDao = db.routeDao()

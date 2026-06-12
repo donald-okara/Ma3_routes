@@ -28,10 +28,10 @@ import androidx.room.PrimaryKey
             entity = RouteEntity::class,
             parentColumns = ["id"],
             childColumns = ["route_id"],
-            onDelete = ForeignKey.CASCADE
-        )
+            onDelete = ForeignKey.CASCADE,
+        ),
     ],
-    indices = [Index(value = ["route_id"])]
+    indices = [Index(value = ["route_id"])],
 )
 data class RouteDestinationEntity(
     @PrimaryKey(autoGenerate = true)
@@ -43,5 +43,5 @@ data class RouteDestinationEntity(
     @ColumnInfo(name = "variant")
     val variant: String?,
     @ColumnInfo(name = "route_destinations")
-    val destinations: List<String>
+    val destinations: List<String>,
 )

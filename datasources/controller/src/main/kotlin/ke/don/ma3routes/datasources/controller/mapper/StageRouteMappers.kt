@@ -25,7 +25,7 @@ fun StageRouteDto.asEntity(): StageRouteEntity = StageRouteEntity(
     routeId = routeId,
     role = role,
     confidence = confidence.toFloat(),
-    source = source
+    source = source,
 )
 
 fun StageRouteEntity.asDomain(): StageRouteDomain = StageRouteDomain(
@@ -34,7 +34,7 @@ fun StageRouteEntity.asDomain(): StageRouteDomain = StageRouteDomain(
     routeId = routeId,
     role = role,
     confidence = confidence.toDouble(),
-    source = source
+    source = source,
 )
 
 fun StageRouteDto.asDomain(): StageRouteDomain = StageRouteDomain(
@@ -43,7 +43,7 @@ fun StageRouteDto.asDomain(): StageRouteDomain = StageRouteDomain(
     routeId = routeId,
     role = role,
     confidence = confidence,
-    source = source
+    source = source,
 )
 
 fun StageRouteDomain.asEntity(): StageRouteEntity = StageRouteEntity(
@@ -52,7 +52,7 @@ fun StageRouteDomain.asEntity(): StageRouteEntity = StageRouteEntity(
     routeId = routeId,
     role = role,
     confidence = confidence.toFloat(),
-    source = source
+    source = source,
 )
 
 fun StageRouteDomain.asDto(): StageRouteDto = StageRouteDto(
@@ -61,5 +61,5 @@ fun StageRouteDomain.asDto(): StageRouteDto = StageRouteDto(
     routeId = routeId,
     role = role,
     confidence = confidence,
-    source = source
+    source = source,
 )

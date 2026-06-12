@@ -35,10 +35,10 @@ import ke.don.ma3routes.datasources.local.entities.StageRouteEntity
         StageEntity::class,
         RouteDestinationEntity::class,
         StageRouteEntity::class,
-        CorrectionEntity::class
+        CorrectionEntity::class,
     ],
     version = 1,
-    exportSchema = true
+    exportSchema = true,
 )
 @TypeConverters(Converters::class)
 abstract class Ma3Database : RoomDatabase() {

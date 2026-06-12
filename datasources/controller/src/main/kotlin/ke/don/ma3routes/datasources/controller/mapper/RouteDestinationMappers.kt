@@ -24,7 +24,7 @@ fun RouteDestinationDto.asEntity(): RouteDestinationEntity = RouteDestinationEnt
     routeId = routeId,
     destination = destination,
     variant = variant,
-    destinations = routeDestinations
+    destinations = routeDestinations,
 )
 
 fun RouteDestinationEntity.asDomain(): RouteDestinationDomain = RouteDestinationDomain(
@@ -32,7 +32,7 @@ fun RouteDestinationEntity.asDomain(): RouteDestinationDomain = RouteDestination
     routeId = routeId,
     destination = destination,
     variant = variant,
-    routeDestinations = destinations
+    routeDestinations = destinations,
 )
 
 fun RouteDestinationDto.asDomain(): RouteDestinationDomain = RouteDestinationDomain(
@@ -40,7 +40,7 @@ fun RouteDestinationDto.asDomain(): RouteDestinationDomain = RouteDestinationDom
     routeId = routeId,
     destination = destination,
     variant = variant,
-    routeDestinations = routeDestinations
+    routeDestinations = routeDestinations,
 )
 
 fun RouteDestinationDomain.asEntity(): RouteDestinationEntity = RouteDestinationEntity(
@@ -48,7 +48,7 @@ fun RouteDestinationDomain.asEntity(): RouteDestinationEntity = RouteDestination
     routeId = routeId,
     destination = destination,
     variant = variant,
-    destinations = routeDestinations
+    destinations = routeDestinations,
 )
 
 fun RouteDestinationDomain.asDto(): RouteDestinationDto = RouteDestinationDto(
@@ -56,5 +56,5 @@ fun RouteDestinationDomain.asDto(): RouteDestinationDto = RouteDestinationDto(
     routeId = routeId,
     destination = destination,
     variant = variant,
-    routeDestinations = routeDestinations
+    routeDestinations = routeDestinations,
 )

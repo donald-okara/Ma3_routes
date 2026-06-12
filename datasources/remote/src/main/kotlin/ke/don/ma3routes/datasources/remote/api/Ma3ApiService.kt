@@ -16,8 +16,8 @@
 package ke.don.ma3routes.datasources.remote.api
 
 import ke.don.ma3routes.datasources.remote.model.CorrectionDto
-import ke.don.ma3routes.datasources.remote.model.RouteDto
 import ke.don.ma3routes.datasources.remote.model.RouteDestinationDto
+import ke.don.ma3routes.datasources.remote.model.RouteDto
 import ke.don.ma3routes.datasources.remote.model.StageDto
 import ke.don.ma3routes.datasources.remote.model.StageRouteDto
 import retrofit2.http.Body
