@@ -7,6 +7,7 @@ import ke.don.ma3routes.datasources.remote.auth.GoogleSigninClient
 import ke.don.ma3routes.datasources.remote.model.GoogleTokenRequest
 import javax.inject.Inject
 
+//TODO on second thought, make this a class in remote to keep session management separate from the rest of the app
 class SessionRepositoryImpl
     @Inject constructor(
         private val googleSigninClient: GoogleSigninClient,
