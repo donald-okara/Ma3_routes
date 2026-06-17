@@ -25,6 +25,9 @@ import ke.don.ma3routes.datasources.remote.BuildConfig
 import ke.don.ma3routes.datasources.remote.api.ApplyInterceptors
 import ke.don.ma3routes.datasources.remote.api.InterceptorType
 import ke.don.ma3routes.datasources.remote.api.Ma3ApiService
+import ke.don.ma3routes.core.domain.session.SessionManager
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -48,7 +51,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideDslInterceptor(): Interceptor = Interceptor { chain ->
+    fun provideDslInterceptor(sessionManager: SessionManager): Interceptor = Interceptor { chain ->
         val request = chain.request()
         val invocation = request.tag(Invocation::class.java)
         val annotation = invocation?.method()?.getAnnotation(ApplyInterceptors::class.java)
@@ -63,6 +66,13 @@ object NetworkModule {
 
         if (InterceptorType.JSON_CONTENT_TYPE in types) {
             builder.addHeader("Content-Type", "application/json")
+        }
+
+        if (InterceptorType.AUTH in types) {
+            val token = runBlocking { sessionManager.getAccessToken().first() }
+            if (token != null) {
+                builder.addHeader("Authorization", "Bearer $token")
+            }
         }
 
         chain.proceed(builder.build())

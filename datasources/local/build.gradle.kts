@@ -25,9 +25,12 @@ android {
 
 dependencies {
     implementation(project(":core:resources"))
+    implementation(project(":core:domain"))
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.security.crypto)
     ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.androidx.room.testing)

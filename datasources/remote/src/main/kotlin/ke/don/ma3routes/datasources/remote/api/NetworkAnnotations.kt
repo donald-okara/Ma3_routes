@@ -30,6 +30,11 @@ enum class InterceptorType {
     JSON_CONTENT_TYPE,
 
     /**
+     * Adds the Authorization header with the access token.
+     */
+    AUTH,
+
+    /**
      * Enables full body logging for this specific call, even if global logging is less verbose.
      */
     VERBOSE_LOGGING

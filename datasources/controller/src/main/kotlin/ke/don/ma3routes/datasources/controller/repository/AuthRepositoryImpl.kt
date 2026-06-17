@@ -1,18 +1,19 @@
 package ke.don.ma3routes.datasources.controller.repository
 
-import ke.don.ma3routes.core.domain.repository.SessionRepository
+import ke.don.ma3routes.core.domain.repository.AuthRepository
+import ke.don.ma3routes.core.domain.session.SessionManager
 import ke.don.ma3routes.core.domain.util.isSuccess
 import ke.don.ma3routes.datasources.remote.api.Ma3ApiService
 import ke.don.ma3routes.datasources.remote.auth.GoogleSigninClient
 import ke.don.ma3routes.datasources.remote.model.GoogleTokenRequest
 import javax.inject.Inject
 
-//TODO on second thought, make this a class in remote to keep session management separate from the rest of the app
-class SessionRepositoryImpl
+class AuthRepositoryImpl
     @Inject constructor(
         private val googleSigninClient: GoogleSigninClient,
         private val apiService: Ma3ApiService,
-    ): SessionRepository {
+        private val sessionManager: SessionManager,
+    ): AuthRepository {
     override suspend fun signInWithGoogle(idToken: String): Result<Unit> {
         val googleResult = googleSigninClient.getCredentialIdToken()
 
@@ -23,8 +24,17 @@ class SessionRepositoryImpl
         val body = GoogleTokenRequest(idToken = googleIdToken)
         val result = apiService.signInWithGoogle(body = body)
 
-        return if (result.isSuccess) Result.success(Unit)
-        else Result.failure(Exception(result.message))
+        return if (result.isSuccess) {
+            val session = result.data
+            if (session != null) {
+                sessionManager.saveAccessToken(session.accessToken)
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception("Session data is null"))
+            }
+        } else {
+            Result.failure(Exception(result.message))
+        }
     }
 
     override suspend fun refreshSession(): Result<Unit> {
