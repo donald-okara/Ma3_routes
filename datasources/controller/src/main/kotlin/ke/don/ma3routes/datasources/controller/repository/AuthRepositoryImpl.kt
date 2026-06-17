@@ -37,7 +37,7 @@ class AuthRepositoryImpl
         }
     }
 
-    override suspend fun refreshSession(): Result<Unit> {
+    override suspend fun signOut(): Result<Unit> {
         TODO("Not yet implemented")
     }
 }
