@@ -13,16 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.ma3.android.library)
     alias(libs.plugins.ma3.hilt.convention)
+}
+
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { load(it) }
+    }
 }
 
 android {
     namespace = "ke.don.ma3routes.datasources.remote"
 
     defaultConfig {
-        buildConfigField("String", "API_BASE_URL", "\"https://api.ma3routes.ke/\"")
+        val baseUrl = localProperties.getProperty("base_url") ?: ""
+        val apiKey = localProperties.getProperty("api_key") ?: ""
+        val webClientId = localProperties.getProperty("web_client_id") ?: ""
+
+        buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
+        buildConfigField("String", "WEB_CLIENT_ID", "\"$webClientId\"")
     }
 }
 
@@ -33,6 +48,10 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.core)
     implementation(libs.okhttp.logging)
+
+    implementation(libs.androidx.credentials)
+    implementation (libs.googleid)
+    implementation(libs.androidx.credentials.play.services.auth)
 
     testImplementation(libs.okhttp.mockwebserver)
     testImplementation(libs.kotlinx.coroutines.test)

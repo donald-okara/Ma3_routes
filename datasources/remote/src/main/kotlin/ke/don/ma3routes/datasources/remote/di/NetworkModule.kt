@@ -55,7 +55,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideMa3ApiService(okHttpClient: OkHttpClient): Ma3ApiService = Retrofit.Builder()
-        .baseUrl(BuildConfig.API_BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
