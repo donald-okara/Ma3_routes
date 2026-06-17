@@ -15,35 +15,52 @@
  */
 package ke.don.ma3routes.datasources.remote.api
 
+import ke.don.ma3routes.core.domain.util.ApiResponse
 import ke.don.ma3routes.datasources.remote.model.CorrectionDto
+import ke.don.ma3routes.datasources.remote.model.GoogleTokenRequest
 import ke.don.ma3routes.datasources.remote.model.RouteDestinationDto
 import ke.don.ma3routes.datasources.remote.model.RouteDto
+import ke.don.ma3routes.datasources.remote.model.Session
 import ke.don.ma3routes.datasources.remote.model.StageDto
 import ke.don.ma3routes.datasources.remote.model.StageRouteDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface Ma3ApiService {
+    @POST("/auth/v1/token")
+    suspend fun signInWithGoogle(
+        @Query("grant_type") grantType: String = "id_token",
+        @Body body: GoogleTokenRequest
+    ): ApiResponse<Session>
+
     @GET("routes")
+    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getRoutes(): List<RouteDto>
 
     @GET("routes/{id}")
+    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getRoute(@Path("id") id: String): RouteDto
 
     @GET("stages")
+    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getStages(): List<StageDto>
 
     @GET("stages/{id}")
+    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getStage(@Path("id") id: String): StageDto
 
     @GET("route-destinations")
+    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getRouteDestinations(): List<RouteDestinationDto>
 
     @GET("stage-routes")
+    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getStageRoutes(): List<StageRouteDto>
 
     @POST("corrections")
+    @ApplyInterceptors(InterceptorType.API_KEY, InterceptorType.JSON_CONTENT_TYPE)
     suspend fun submitCorrection(@Body correction: CorrectionDto): CorrectionDto
 }

@@ -22,9 +22,13 @@ import dagger.hilt.components.SingletonComponent
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 import ke.don.ma3routes.datasources.remote.BuildConfig
+import ke.don.ma3routes.datasources.remote.api.ApplyInterceptors
+import ke.don.ma3routes.datasources.remote.api.InterceptorType
 import ke.don.ma3routes.datasources.remote.api.Ma3ApiService
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Invocation
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -44,8 +48,34 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+    fun provideDslInterceptor(): Interceptor = Interceptor { chain ->
+        val request = chain.request()
+        val invocation = request.tag(Invocation::class.java)
+        val annotation = invocation?.method()?.getAnnotation(ApplyInterceptors::class.java)
+
+        val types = annotation?.types ?: arrayOf(InterceptorType.API_KEY, InterceptorType.JSON_CONTENT_TYPE)
+
+        val builder = request.newBuilder()
+
+        if (InterceptorType.API_KEY in types) {
+            builder.addHeader("apikey", BuildConfig.API_KEY)
+        }
+
+        if (InterceptorType.JSON_CONTENT_TYPE in types) {
+            builder.addHeader("Content-Type", "application/json")
+        }
+
+        chain.proceed(builder.build())
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        dslInterceptor: Interceptor,
+    ): OkHttpClient =
         OkHttpClient.Builder()
+            .addInterceptor(dslInterceptor)
             .addInterceptor(loggingInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

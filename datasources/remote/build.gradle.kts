@@ -43,14 +43,18 @@ android {
 
 dependencies {
     implementation(project(":core:resources"))
+    implementation(project(":core:domain"))
 
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.core)
     implementation(libs.okhttp.logging)
 
+    //noinspection LoginCredentials
     implementation(libs.androidx.credentials)
+    //noinspection LoginCredentials
     implementation (libs.googleid)
+    //noinspection LoginCredentials
     implementation(libs.androidx.credentials.play.services.auth)
 
     testImplementation(libs.okhttp.mockwebserver)
