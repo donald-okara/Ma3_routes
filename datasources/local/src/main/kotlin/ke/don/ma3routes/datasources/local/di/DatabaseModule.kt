@@ -28,6 +28,7 @@ import ke.don.ma3routes.datasources.local.dao.RouteDao
 import ke.don.ma3routes.datasources.local.dao.RouteDestinationDao
 import ke.don.ma3routes.datasources.local.dao.StageDao
 import ke.don.ma3routes.datasources.local.dao.StageRouteDao
+import ke.don.ma3routes.datasources.local.dao.UserDao
 import ke.don.ma3routes.datasources.local.database.Ma3Database
 
 @Module
@@ -41,7 +42,9 @@ object DatabaseModule {
             context,
             Ma3Database::class.java,
             "ma3-database",
-        ).build()
+        )
+            .fallbackToDestructiveMigration(dropAllTables = true)
+            .build()
 
     @Provides
     fun provideRouteDao(database: Ma3Database): RouteDao = database.routeDao()
@@ -58,4 +61,7 @@ object DatabaseModule {
 
     @Provides
     fun provideCorrectionDao(database: Ma3Database): CorrectionDao = database.correctionDao()
+
+    @Provides
+    fun provideUserDao(database: Ma3Database): UserDao = database.userDao()
 }

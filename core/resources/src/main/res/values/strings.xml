@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ma3 routes</string>
+    <string name="welcome_to_ma3_routes">Welcome to Ma3 routes</string>
+    <string name="smart_guide_description">Your smart guide to Nairobi\'s transit.</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="auth_benefit_description">Unlock real-time route tracking and stage alerts for your daily commute.</string>
+    <string name="terms_and_privacy_prefix">By signing in, you agree to our </string>
+    <string name="terms"> Terms </string>
+    <string name="and"> and </string>
+    <string name="privacy_policy"> Privacy Policy</string>
+    <string name="app_logo_content_description">App Logo</string>
+
+    <!-- Auth Status Strings -->
+    <string name="auth_success">Success</string>
+    <string name="auth_success_logged_in">Successfully logged in</string>
+    <string name="auth_error">Error</string>
+    <string name="auth_unknown_error">Unknown error</string>
+</resources>

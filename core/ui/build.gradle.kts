@@ -24,4 +24,6 @@ android {
 
 dependencies {
     implementation(project(":core:resources"))
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
 }

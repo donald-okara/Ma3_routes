@@ -67,12 +67,11 @@ class DslInterceptor @Inject constructor(
                     // Try to refresh
                     val refreshToken = sessionManager.getRefreshToken().first()
                     if (refreshToken != null) {
-                        val refreshResponse = apiServiceProvider.get().refreshToken(refreshToken = refreshToken)
-                        val session = refreshResponse.data
-                        if (refreshResponse.status in 200..299 && session != null) {
+                        runCatching {
+                            val session = apiServiceProvider.get().refreshToken(refreshToken = refreshToken)
                             sessionManager.saveSession(session.accessToken, session.refreshToken)
                             session.accessToken
-                        } else {
+                        }.getOrNull() ?: run {
                             sessionManager.clearSession()
                             null
                         }

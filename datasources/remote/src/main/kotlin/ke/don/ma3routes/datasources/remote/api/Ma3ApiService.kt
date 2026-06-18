@@ -15,7 +15,6 @@
  */
 package ke.don.ma3routes.datasources.remote.api
 
-import ke.don.ma3routes.core.domain.util.ApiResponse
 import ke.don.ma3routes.datasources.remote.model.CorrectionDto
 import ke.don.ma3routes.datasources.remote.model.GoogleTokenRequest
 import ke.don.ma3routes.datasources.remote.model.RouteDestinationDto
@@ -34,13 +33,13 @@ interface Ma3ApiService {
     suspend fun signInWithGoogle(
         @Query("grant_type") grantType: String = "id_token",
         @Body body: GoogleTokenRequest
-    ): ApiResponse<Session>
+    ): Session
 
     @POST("/auth/v1/token")
     suspend fun refreshToken(
         @Query("grant_type") grantType: String = "refresh_token",
         @Query("refresh_token") refreshToken: String
-    ): ApiResponse<Session>
+    ): Session
 
     @GET("routes")
     @ApplyInterceptors(InterceptorType.API_KEY)

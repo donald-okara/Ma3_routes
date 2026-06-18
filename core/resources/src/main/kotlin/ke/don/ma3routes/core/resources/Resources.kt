@@ -19,8 +19,56 @@ object Resources {
     object Drawable {
         val appLogo = R.drawable.app_logo
         val google = R.drawable.google
+        object Strings {
+        val welcomeToMa3Routes = R.string.welcome_to_ma3_routes
+        val smartGuideDescription = R.string.smart_guide_description
+        val signInWithGoogle = R.string.sign_in_with_google
+        val authBenefitDescription = R.string.auth_benefit_description
+        val termsAndPrivacyPrefix = R.string.terms_and_privacy_prefix
+        val terms = R.string.terms
+        val and = R.string.and
+        val privacyPolicy = R.string.privacy_policy
+        val appLogoContentDescription = R.string.app_logo_content_description
+
+        val authSuccess = R.string.auth_success
+        val authSuccessLoggedIn = R.string.auth_success_logged_in
+        val authError = R.string.auth_error
+        val authUnknownError = R.string.auth_unknown_error
     }
+}
     object Fonts {
         val interRegular: Int = R.font.inter_regular
+        object Strings {
+        val welcomeToMa3Routes = R.string.welcome_to_ma3_routes
+        val smartGuideDescription = R.string.smart_guide_description
+        val signInWithGoogle = R.string.sign_in_with_google
+        val authBenefitDescription = R.string.auth_benefit_description
+        val termsAndPrivacyPrefix = R.string.terms_and_privacy_prefix
+        val terms = R.string.terms
+        val and = R.string.and
+        val privacyPolicy = R.string.privacy_policy
+        val appLogoContentDescription = R.string.app_logo_content_description
+
+        val authSuccess = R.string.auth_success
+        val authSuccessLoggedIn = R.string.auth_success_logged_in
+        val authError = R.string.auth_error
+        val authUnknownError = R.string.auth_unknown_error
+    }
+}
+    object Strings {
+        val welcomeToMa3Routes = R.string.welcome_to_ma3_routes
+        val smartGuideDescription = R.string.smart_guide_description
+        val signInWithGoogle = R.string.sign_in_with_google
+        val authBenefitDescription = R.string.auth_benefit_description
+        val termsAndPrivacyPrefix = R.string.terms_and_privacy_prefix
+        val terms = R.string.terms
+        val and = R.string.and
+        val privacyPolicy = R.string.privacy_policy
+        val appLogoContentDescription = R.string.app_logo_content_description
+
+        val authSuccess = R.string.auth_success
+        val authSuccessLoggedIn = R.string.auth_success_logged_in
+        val authError = R.string.auth_error
+        val authUnknownError = R.string.auth_unknown_error
     }
 }

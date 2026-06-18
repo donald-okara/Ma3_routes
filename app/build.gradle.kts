@@ -33,4 +33,7 @@ dependencies {
     implementation(project(":core:resources"))
     implementation(project(":datasources:sync"))
     implementation(project(":core:ui"))
+
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
 }

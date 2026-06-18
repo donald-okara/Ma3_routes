@@ -13,15 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.feature)
-}
+package ke.don.ma3routes.datasources.local.dao
 
-android {
-    namespace = "ke.don.ma3routes.features.authentication"
-}
+import androidx.room.Dao
+import androidx.room.Query
+import ke.don.ma3routes.datasources.local.entities.UserEntity
+import kotlinx.coroutines.flow.Flow
 
-dependencies {
-    implementation(project(":datasources:remote"))
-    implementation(project(":core:domain"))
+@Dao
+interface UserDao : BaseDao<UserEntity> {
+    @Query("SELECT * FROM users WHERE id = :id")
+    suspend fun getUserById(id: String): UserEntity?
+
+    @Query("SELECT * FROM users LIMIT 1")
+    fun getCurrentUser(): Flow<UserEntity?>
+
+    @Query("DELETE FROM users")
+    suspend fun clearUsers()
 }

@@ -13,15 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.feature)
-}
+package ke.don.ma3routes.datasources.controller.di
 
-android {
-    namespace = "ke.don.ma3routes.features.authentication"
-}
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import ke.don.ma3routes.core.domain.repository.AuthRepository
+import ke.don.ma3routes.datasources.controller.repository.AuthRepositoryImpl
+import javax.inject.Singleton
 
-dependencies {
-    implementation(project(":datasources:remote"))
-    implementation(project(":core:domain"))
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindAuthRepository(
+        authRepositoryImpl: AuthRepositoryImpl
+    ): AuthRepository
 }

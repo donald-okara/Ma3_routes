@@ -23,11 +23,13 @@ import ke.don.ma3routes.datasources.local.dao.RouteDao
 import ke.don.ma3routes.datasources.local.dao.RouteDestinationDao
 import ke.don.ma3routes.datasources.local.dao.StageDao
 import ke.don.ma3routes.datasources.local.dao.StageRouteDao
+import ke.don.ma3routes.datasources.local.dao.UserDao
 import ke.don.ma3routes.datasources.local.entities.CorrectionEntity
 import ke.don.ma3routes.datasources.local.entities.RouteDestinationEntity
 import ke.don.ma3routes.datasources.local.entities.RouteEntity
 import ke.don.ma3routes.datasources.local.entities.StageEntity
 import ke.don.ma3routes.datasources.local.entities.StageRouteEntity
+import ke.don.ma3routes.datasources.local.entities.UserEntity
 
 @Database(
     entities = [
@@ -36,8 +38,9 @@ import ke.don.ma3routes.datasources.local.entities.StageRouteEntity
         RouteDestinationEntity::class,
         StageRouteEntity::class,
         CorrectionEntity::class,
+        UserEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 @TypeConverters(Converters::class)
@@ -47,4 +50,5 @@ abstract class Ma3Database : RoomDatabase() {
     abstract fun routeDestinationDao(): RouteDestinationDao
     abstract fun stageRouteDao(): StageRouteDao
     abstract fun correctionDao(): CorrectionDao
+    abstract fun userDao(): UserDao
 }

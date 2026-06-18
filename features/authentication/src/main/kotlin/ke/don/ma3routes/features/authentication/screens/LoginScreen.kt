@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:Suppress("DEPRECATION")
+
 package ke.don.ma3routes.features.authentication.screens
 
 import androidx.compose.foundation.Image
@@ -38,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -47,6 +50,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import ke.don.ma3routes.core.resources.Resources
 import ke.don.ma3routes.core.ui.components.buttons.ButtonType
@@ -58,8 +62,10 @@ import ke.don.ma3routes.features.authentication.model.AuthViewModel
 fun LoginScreen(
     viewModel: AuthViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
+
     LoginContent(
-        onLoginClick = viewModel::logIn,
+        onLoginClick = { viewModel.logIn(context) },
         onTermsClick = { /* TODO */ },
         onPrivacyClick = { /* TODO */ },
     )
@@ -83,14 +89,14 @@ fun LoginContent(
 
             Image(
                 painter = painterResource(id = Resources.Drawable.appLogo),
-                contentDescription = "App Logo",
+                contentDescription = stringResource(id = Resources.Strings.appLogoContentDescription),
                 modifier = Modifier.size(120.dp),
             )
 
             Spacer(modifier = Modifier.height(48.dp))
 
             Text(
-                text = "Welcome to Ma3 routes",
+                text = stringResource(id = Resources.Strings.welcomeToMa3Routes),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
@@ -99,7 +105,7 @@ fun LoginContent(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Your smart guide to Nairobi's transit.",
+                text = stringResource(id = Resources.Strings.smartGuideDescription),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
@@ -124,7 +130,7 @@ fun LoginContent(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Sign in with Google",
+                        text = stringResource(id = Resources.Strings.signInWithGoogle),
                         fontWeight = FontWeight.SemiBold,
                     )
                 }
@@ -133,7 +139,7 @@ fun LoginContent(
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = "Unlock real-time route tracking and stage alerts for your daily commute.",
+                text = stringResource(id = Resources.Strings.authBenefitDescription),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
@@ -142,7 +148,7 @@ fun LoginContent(
             Spacer(modifier = Modifier.weight(1.2f))
 
             val annotatedString = buildAnnotatedString {
-                append("By signing in, you agree to our ")
+                append(stringResource(id = Resources.Strings.termsAndPrivacyPrefix))
                 pushStringAnnotation(tag = "terms", annotation = "terms")
                 withStyle(
                     style = SpanStyle(
@@ -150,10 +156,10 @@ fun LoginContent(
                         textDecoration = TextDecoration.Underline,
                     ),
                 ) {
-                    append("Terms")
+                    append(stringResource(id = Resources.Strings.terms))
                 }
                 pop()
-                append(" and ")
+                append(stringResource(id = Resources.Strings.and))
                 pushStringAnnotation(tag = "privacy", annotation = "privacy")
                 withStyle(
                     style = SpanStyle(
@@ -161,7 +167,7 @@ fun LoginContent(
                         textDecoration = TextDecoration.Underline,
                     ),
                 ) {
-                    append("Privacy Policy")
+                    append(stringResource(id = Resources.Strings.privacyPolicy))
                 }
                 pop()
             }
