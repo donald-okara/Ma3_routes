@@ -38,6 +38,7 @@ class AuthRepositoryImpl
     }
 
     override suspend fun signOut(): Result<Unit> {
-        TODO("Not yet implemented")
+        sessionManager.clearSession()
+        return Result.success(Unit)
     }
 }
