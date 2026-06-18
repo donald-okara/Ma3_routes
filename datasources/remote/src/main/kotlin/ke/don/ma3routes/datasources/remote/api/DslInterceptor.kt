@@ -16,6 +16,7 @@
 package ke.don.ma3routes.datasources.remote.api
 
 import ke.don.ma3routes.core.domain.session.SessionManager
+import ke.don.ma3routes.core.domain.util.isSuccess
 import ke.don.ma3routes.datasources.remote.BuildConfig
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

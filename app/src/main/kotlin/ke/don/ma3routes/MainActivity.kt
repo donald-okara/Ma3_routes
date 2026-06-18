@@ -52,8 +52,8 @@ class MainActivity : ComponentActivity() {
             val isLoggedIn = accessToken != null
 
             val navigationState = rememberNavigationState(
-                startRoute = Ma3Screens.HomeScreen,
-                topLevelRoutes = setOf(Ma3Screens.HomeScreen, Ma3Screens.Routes)
+                startRoute = if (isLoggedIn) Ma3Screens.HomeScreen else Ma3Screens.LoginScreen,
+                topLevelRoutes = setOf(Ma3Screens.HomeScreen, Ma3Screens.Settings)
             )
 
             val navigator = remember(navigationState, isLoggedIn) {

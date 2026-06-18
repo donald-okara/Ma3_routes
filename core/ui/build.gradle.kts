@@ -16,6 +16,7 @@
 plugins {
     alias(libs.plugins.ma3.android.library)
     alias(libs.plugins.ma3.android.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -26,4 +27,5 @@ dependencies {
     implementation(project(":core:resources"))
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.kotlinx.serialization.json)
 }

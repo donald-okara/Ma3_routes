@@ -10,6 +10,7 @@ lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.13.0"
 hiltNavigationCompose = "1.2.0"
 kotlin = "2.4.0"
+kotlinxSerializationJson = "1.8.0"
 composeBom = "2026.05.01"
 hilt = "2.59.2"
 jetbrainsKotlinJvm = "2.4.0"
@@ -71,6 +72,7 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 okhttp-mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
 koffee = { group = "io.github.donald-okara", name = "koffee", version.ref = "koffee" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
 androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
@@ -93,6 +95,7 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 

@@ -33,7 +33,7 @@ fun rememberNavigationState(
         mutableStateOf(startRoute)
     }
 
-    val backStacks = topLevelRoutes.associateWith { key -> rememberNavBackStack(key) }
+    val backStacks = (topLevelRoutes + startRoute).associateWith { key -> rememberNavBackStack(key) }
 
     return remember(startRoute, topLevelRoutes) {
         NavigationState(
