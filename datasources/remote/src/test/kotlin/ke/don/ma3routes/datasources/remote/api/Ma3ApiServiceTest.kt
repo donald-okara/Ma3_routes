@@ -243,4 +243,56 @@ class Ma3ApiServiceTest {
         assert(requestBody.contains("\"entity_id\":\"route-1\""))
         assert(requestBody.contains("\"new_value\":\"33F\""))
     }
+
+    @Test
+    fun `signInWithGoogle parses Supabase session and user`() = runTest {
+        val responseBody = """
+            {
+              "access_token": "access-token",
+              "token_type": "bearer",
+              "expires_in": 3600,
+              "expires_at": 1781778030,
+              "refresh_token": "refresh-token",
+              "user": {
+                "id": "47fb004c-27e3-49db-bc5d-96eea8f1757f",
+                "aud": "authenticated",
+                "role": "authenticated",
+                "email": "user@example.com",
+                "email_confirmed_at": "2026-06-18T08:39:17.92258Z",
+                "phone": "",
+                "confirmed_at": "2026-06-18T08:39:17.92258Z",
+                "last_sign_in_at": "2026-06-18T09:20:30.218740725Z",
+                "user_metadata": {
+                  "avatar_url": "https://example.com/avatar.png",
+                  "email": "user@example.com",
+                  "email_verified": true,
+                  "full_name": "Donald Isoe",
+                  "name": "Donald Isoe",
+                  "phone_verified": false,
+                  "picture": "https://example.com/picture.png",
+                  "provider_id": "116728353976016128931",
+                  "sub": "116728353976016128931"
+                },
+                "created_at": "2026-06-18T08:39:17.886394Z",
+                "updated_at": "2026-06-18T09:20:30.225226Z",
+                "is_anonymous": false
+              }
+            }
+        """.trimIndent()
+
+        mockWebServer.enqueue(MockResponse().setBody(responseBody))
+
+        val session = apiService.signInWithGoogle(body = ke.don.ma3routes.datasources.remote.model.GoogleTokenRequest("id-token"))
+
+        assertEquals("access-token", session.accessToken)
+        assertEquals("refresh-token", session.refreshToken)
+        assertEquals(1781778030L, session.expiresAt)
+        assertEquals("47fb004c-27e3-49db-bc5d-96eea8f1757f", session.user.id)
+        assertEquals("Donald Isoe", session.user.userMetadata?.fullName)
+
+        val request = mockWebServer.takeRequest()
+        assertEquals("/auth/v1/token?grant_type=id_token", request.path)
+        assertEquals("POST", request.method)
+        assert(request.body.readUtf8().contains("\"id_token\":\"id-token\""))
+    }
 }
