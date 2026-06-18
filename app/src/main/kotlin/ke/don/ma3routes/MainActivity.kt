@@ -19,71 +19,80 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import dagger.hilt.android.AndroidEntryPoint
 import ke.don.koffee.annotations.ExperimentalKoffeeApi
 import ke.don.koffee.ui.KoffeeBar
-import ke.don.ma3routes.core.domain.session.SessionManager
 import ke.don.ma3routes.core.ui.navigation.Ma3Screens
 import ke.don.ma3routes.core.ui.navigation.Navigator
 import ke.don.ma3routes.core.ui.navigation.rememberNavigationState
 import ke.don.ma3routes.core.ui.navigation.toEntries
 import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
 import ke.don.ma3routes.features.authentication.screens.LoginScreen
-import javax.inject.Inject
 
 @OptIn(ExperimentalKoffeeApi::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var sessionManager: SessionManager
+
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
+
+        splashScreen.setKeepOnScreenCondition {
+            viewModel.uiState.value is MainUiState.Loading
+        }
+
         enableEdgeToEdge()
         setContent {
-            val accessToken by sessionManager.getAccessToken().collectAsState(initial = null)
-            val isLoggedIn = accessToken != null
+            val uiState by viewModel.uiState.collectAsState()
 
-            val navigationState = rememberNavigationState(
-                startRoute = if (isLoggedIn) Ma3Screens.HomeScreen else Ma3Screens.LoginScreen,
-                topLevelRoutes = setOf(Ma3Screens.HomeScreen, Ma3Screens.Settings)
-            )
+            if (uiState is MainUiState.Success) {
+                val isLoggedIn = (uiState as MainUiState.Success).isLoggedIn
 
-            val navigator = remember(navigationState, isLoggedIn) {
-                Navigator(
-                    state = navigationState,
-                    onNavigateToRestrictedKey = { Ma3Screens.LoginScreen },
-                    isLoggedIn = { isLoggedIn }
+                val navigationState = rememberNavigationState(
+                    startRoute = if (isLoggedIn) Ma3Screens.HomeScreen else Ma3Screens.LoginScreen,
+                    topLevelRoutes = setOf(Ma3Screens.HomeScreen, Ma3Screens.Settings)
                 )
-            }
 
-            val entryProvider = remember {
-                entryProvider<NavKey> {
-                    entry<Ma3Screens.HomeScreen> {
-                        Text("Home Screen")
-                    }
-                    entry<Ma3Screens.LoginScreen> {
-                        LoginScreen()
-                    }
-                    entry<Ma3Screens.Settings> {
-                        Text("Profile Screen")
+                val navigator = remember(navigationState, isLoggedIn) {
+                    Navigator(
+                        state = navigationState,
+                        onNavigateToRestrictedKey = { Ma3Screens.LoginScreen },
+                        isLoggedIn = { isLoggedIn }
+                    )
+                }
+
+                val entryProvider = remember {
+                    entryProvider<NavKey> {
+                        entry<Ma3Screens.HomeScreen> {
+                            Text("Home Screen")
+                        }
+                        entry<Ma3Screens.LoginScreen> {
+                            LoginScreen()
+                        }
+                        entry<Ma3Screens.Settings> {
+                            Text("Profile Screen")
+                        }
                     }
                 }
-            }
 
-            Ma3RoutesTheme {
-                KoffeeBar {
-                    NavDisplay(
-                        entries = navigationState.toEntries(entryProvider),
-                        onBack = { navigator.goBack() }
-                    )
+                Ma3RoutesTheme {
+                    KoffeeBar {
+                        NavDisplay(
+                            entries = navigationState.toEntries(entryProvider),
+                            onBack = { navigator.goBack() }
+                        )
+                    }
                 }
             }
         }

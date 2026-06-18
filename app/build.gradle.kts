@@ -36,4 +36,6 @@ dependencies {
 
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.activity.ktx)
 }
