@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface SessionManager {
     fun getAccessToken(): Flow<String?>
-    suspend fun saveAccessToken(token: String)
+    fun getRefreshToken(): Flow<String?>
+    suspend fun saveSession(accessToken: String, refreshToken: String)
     suspend fun clearSession()
 }

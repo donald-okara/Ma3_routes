@@ -22,16 +22,10 @@ import dagger.hilt.components.SingletonComponent
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 import ke.don.ma3routes.datasources.remote.BuildConfig
-import ke.don.ma3routes.datasources.remote.api.ApplyInterceptors
-import ke.don.ma3routes.datasources.remote.api.InterceptorType
 import ke.don.ma3routes.datasources.remote.api.Ma3ApiService
-import ke.don.ma3routes.core.domain.session.SessionManager
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
-import okhttp3.Interceptor
+import ke.don.ma3routes.datasources.remote.api.DslInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Invocation
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -51,38 +45,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideDslInterceptor(sessionManager: SessionManager): Interceptor = Interceptor { chain ->
-        val request = chain.request()
-        val invocation = request.tag(Invocation::class.java)
-        val annotation = invocation?.method()?.getAnnotation(ApplyInterceptors::class.java)
-
-        val types = annotation?.types ?: arrayOf(InterceptorType.API_KEY, InterceptorType.JSON_CONTENT_TYPE)
-
-        val builder = request.newBuilder()
-
-        if (InterceptorType.API_KEY in types) {
-            builder.addHeader("apikey", BuildConfig.API_KEY)
-        }
-
-        if (InterceptorType.JSON_CONTENT_TYPE in types) {
-            builder.addHeader("Content-Type", "application/json")
-        }
-
-        if (InterceptorType.AUTH in types) {
-            val token = runBlocking { sessionManager.getAccessToken().first() }
-            if (token != null) {
-                builder.addHeader("Authorization", "Bearer $token")
-            }
-        }
-
-        chain.proceed(builder.build())
-    }
-
-    @Provides
-    @Singleton
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-        dslInterceptor: Interceptor,
+        dslInterceptor: DslInterceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(dslInterceptor)

@@ -40,15 +40,35 @@ class SessionManagerImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveAccessToken(token: String) {
-        sharedPreferences.edit { putString(ACCESS_TOKEN_KEY, token) }
+    override fun getRefreshToken(): Flow<String?> = callbackFlow {
+        val listener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
+            if (key == REFRESH_TOKEN_KEY) {
+                trySend(prefs.getString(REFRESH_TOKEN_KEY, null))
+            }
+        }
+        sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
+        trySend(sharedPreferences.getString(REFRESH_TOKEN_KEY, null))
+        awaitClose {
+            sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
+        }
+    }
+
+    override suspend fun saveSession(accessToken: String, refreshToken: String) {
+        sharedPreferences.edit {
+            putString(ACCESS_TOKEN_KEY, accessToken)
+            putString(REFRESH_TOKEN_KEY, refreshToken)
+        }
     }
 
     override suspend fun clearSession() {
-        sharedPreferences.edit { remove(ACCESS_TOKEN_KEY) }
+        sharedPreferences.edit {
+            remove(ACCESS_TOKEN_KEY)
+            remove(REFRESH_TOKEN_KEY)
+        }
     }
 
     companion object {
         private const val ACCESS_TOKEN_KEY = "access_token"
+        private const val REFRESH_TOKEN_KEY = "refresh_token"
     }
 }

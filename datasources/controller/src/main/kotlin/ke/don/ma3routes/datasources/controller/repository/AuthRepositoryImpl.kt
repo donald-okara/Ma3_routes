@@ -27,7 +27,7 @@ class AuthRepositoryImpl
         return if (result.isSuccess) {
             val session = result.data
             if (session != null) {
-                sessionManager.saveAccessToken(session.accessToken)
+                sessionManager.saveSession(session.accessToken, session.refreshToken)
                 Result.success(Unit)
             } else {
                 Result.failure(Exception("Session data is null"))

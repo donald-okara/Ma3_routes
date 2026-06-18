@@ -36,6 +36,12 @@ interface Ma3ApiService {
         @Body body: GoogleTokenRequest
     ): ApiResponse<Session>
 
+    @POST("/auth/v1/token")
+    suspend fun refreshToken(
+        @Query("grant_type") grantType: String = "refresh_token",
+        @Query("refresh_token") refreshToken: String
+    ): ApiResponse<Session>
+
     @GET("routes")
     @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getRoutes(): List<RouteDto>
