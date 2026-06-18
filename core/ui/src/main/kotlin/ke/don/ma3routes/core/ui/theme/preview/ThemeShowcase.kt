@@ -392,6 +392,7 @@ fun ActionIconsCard() {
                                 ButtonType.Tertiary -> Icons.Default.Favorite
                                 ButtonType.Danger -> Icons.Default.Delete
                                 ButtonType.Outlined -> Icons.Default.MoreVert
+                                ButtonType.Neutral -> Icons.Default.Place
                             },
                             contentDescription = null,
                             modifier = Modifier.size(20.dp),

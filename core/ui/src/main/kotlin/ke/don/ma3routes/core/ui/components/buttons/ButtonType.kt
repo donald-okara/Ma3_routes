@@ -24,4 +24,5 @@ enum class ButtonType {
     Tertiary,
     Outlined,
     Danger,
+    Neutral,
 }

@@ -16,6 +16,10 @@
 package ke.don.ma3routes.core.resources
 
 object Resources {
+    object Drawable {
+        val appLogo = R.drawable.app_logo
+        val google = R.drawable.google
+    }
     object Fonts {
         val interRegular: Int = R.font.inter_regular
     }

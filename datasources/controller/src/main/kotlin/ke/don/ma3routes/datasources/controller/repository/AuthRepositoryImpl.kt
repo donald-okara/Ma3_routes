@@ -14,7 +14,7 @@ class AuthRepositoryImpl
         private val apiService: Ma3ApiService,
         private val sessionManager: SessionManager,
     ): AuthRepository {
-    override suspend fun signInWithGoogle(idToken: String): Result<Unit> {
+    override suspend fun signInWithGoogle(): Result<Unit> {
         val googleResult = googleSigninClient.getCredentialIdToken()
 
         if (googleResult.isFailure) return Result.failure(googleResult.exceptionOrNull()!!)

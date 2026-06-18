@@ -15,14 +15,17 @@
  */
 package ke.don.convention
 
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.project
 
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             pluginManager.apply {
                 apply("ma3.android.library")
                 apply("ma3.android.compose")
@@ -35,6 +38,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:resources"))
                 add("implementation", project(":core:ui"))
                 add("implementation", project(":datasources:controller"))
+
+                add("implementation", libs.findLibrary("hilt-navigation-compose").get())
             }
         }
     }

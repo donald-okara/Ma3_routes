@@ -104,5 +104,12 @@ fun iconButtonColorsFor(type: ButtonType): IconButtonColors {
             disabledContainerColor = Color.Transparent,
             disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
         )
+
+        ButtonType.Neutral -> IconButtonDefaults.iconButtonColors(
+            containerColor = MaterialTheme.colorScheme.onSurface,
+            contentColor = MaterialTheme.colorScheme.surface,
+            disabledContainerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
+            disabledContentColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.38f),
+        )
     }
 }

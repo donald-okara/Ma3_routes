@@ -42,6 +42,9 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx-activity-compose").get())
                 add("implementation", libs.findLibrary("androidx-lifecycle-runtime-ktx").get())
                 add("implementation", libs.findLibrary("androidx-core-ktx").get())
+                add("implementation", libs.findLibrary("androidx-compose-ui-tooling-preview").get())
+
+                add("testImplementation", libs.findBundle("test-compose").get())
 
                 add("testImplementation", libs.findLibrary("junit").get())
 
