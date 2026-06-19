@@ -16,6 +16,8 @@
 package ke.don.ma3routes.datasources.local.session
 
 import androidx.datastore.core.Serializer
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.io.InputStream
@@ -39,6 +41,8 @@ object SessionSerializer : Serializer<SessionData> {
     override suspend fun writeTo(t: SessionData, output: OutputStream) {
         val jsonString = Json.encodeToString(SessionData.serializer(), t)
         val encryptedBytes = Crypto.encrypt(jsonString.toByteArray())
-        output.write(encryptedBytes)
+        withContext(Dispatchers.IO) {
+            output.write(encryptedBytes)
+        }
     }
 }
