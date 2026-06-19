@@ -17,6 +17,7 @@ plugins {
     alias(libs.plugins.ma3.android.library)
     alias(libs.plugins.ma3.hilt.convention)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -30,7 +31,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.security.crypto)
+    implementation(libs.kotlinx.serialization.json)
     ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.androidx.room.testing)

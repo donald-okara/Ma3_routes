@@ -36,6 +36,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,10 +53,14 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ke.don.ma3routes.core.domain.util.ResultStatus
+import ke.don.ma3routes.core.domain.util.isLoading
 import ke.don.ma3routes.core.resources.Resources
 import ke.don.ma3routes.core.ui.components.buttons.ButtonType
 import ke.don.ma3routes.core.ui.components.buttons.Ma3Button
 import ke.don.ma3routes.core.ui.theme.preview.PreviewContent
+import ke.don.ma3routes.features.authentication.model.AuthUiState
 import ke.don.ma3routes.features.authentication.model.AuthViewModel
 
 @Composable
@@ -63,8 +68,10 @@ fun LoginScreen(
     viewModel: AuthViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
+    val state by viewModel.authState.collectAsStateWithLifecycle()
 
     LoginContent(
+        state = state,
         onLoginClick = { viewModel.logIn(context) },
         onTermsClick = { /* TODO */ },
         onPrivacyClick = { /* TODO */ },
@@ -73,6 +80,7 @@ fun LoginScreen(
 
 @Composable
 fun LoginContent(
+    state: AuthUiState = AuthUiState(),
     onLoginClick: () -> Unit,
     onTermsClick: () -> Unit,
     onPrivacyClick: () -> Unit,
@@ -115,6 +123,7 @@ fun LoginContent(
 
             Ma3Button(
                 onClick = onLoginClick,
+                loading = state.status.isLoading,
                 type = ButtonType.Neutral,
                 modifier = Modifier.fillMaxWidth(),
             ) {

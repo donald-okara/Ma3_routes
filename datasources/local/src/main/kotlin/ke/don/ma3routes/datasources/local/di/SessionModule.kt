@@ -16,9 +16,9 @@
 package ke.don.ma3routes.datasources.local.di
 
 import android.content.Context
-import android.content.SharedPreferences
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
+import androidx.datastore.core.DataStore
+import androidx.datastore.core.DataStoreFactory
+import androidx.datastore.dataStoreFile
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -26,7 +26,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ke.don.ma3routes.core.domain.session.SessionManager
+import ke.don.ma3routes.datasources.local.session.SessionData
 import ke.don.ma3routes.datasources.local.session.SessionManagerImpl
+import ke.don.ma3routes.datasources.local.session.SessionSerializer
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
 
 @Module
@@ -38,21 +43,15 @@ abstract class SessionModule {
     abstract fun bindSessionManager(sessionManagerImpl: SessionManagerImpl): SessionManager
 
     companion object {
-        private const val SESSION_PREFS = "session_prefs"
+        private const val SESSION_DATA_FILE = "session_data.pb"
 
         @Provides
         @Singleton
-        fun provideEncryptedSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-            val masterKey = MasterKey.Builder(context)
-                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                .build()
-
-            return EncryptedSharedPreferences.create(
-                context,
-                SESSION_PREFS,
-                masterKey,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        fun provideSessionDataStore(@ApplicationContext context: Context): DataStore<SessionData> {
+            return DataStoreFactory.create(
+                serializer = SessionSerializer,
+                produceFile = { context.dataStoreFile(SESSION_DATA_FILE) },
+                scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
             )
         }
     }

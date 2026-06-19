@@ -15,60 +15,35 @@
  */
 package ke.don.ma3routes.datasources.local.session
 
-import android.content.SharedPreferences
-import androidx.core.content.edit
+import androidx.datastore.core.DataStore
 import ke.don.ma3routes.core.domain.session.SessionManager
-import kotlinx.coroutines.channels.awaitClose
+import ke.don.ma3routes.datasources.local.dao.UserDao
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class SessionManagerImpl @Inject constructor(
-    private val sharedPreferences: SharedPreferences
+    private val dataStore: DataStore<SessionData>,
+    private val dao: UserDao
 ) : SessionManager {
 
-    override fun getAccessToken(): Flow<String?> = callbackFlow {
-        val listener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
-            if (key == ACCESS_TOKEN_KEY) {
-                trySend(prefs.getString(ACCESS_TOKEN_KEY, null))
-            }
-        }
-        sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
-        trySend(sharedPreferences.getString(ACCESS_TOKEN_KEY, null))
-        awaitClose {
-            sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
-        }
-    }
+    override fun getAccessToken(): Flow<String?> = dataStore.data.map { it.accessToken }
 
-    override fun getRefreshToken(): Flow<String?> = callbackFlow {
-        val listener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
-            if (key == REFRESH_TOKEN_KEY) {
-                trySend(prefs.getString(REFRESH_TOKEN_KEY, null))
-            }
-        }
-        sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
-        trySend(sharedPreferences.getString(REFRESH_TOKEN_KEY, null))
-        awaitClose {
-            sharedPreferences.unregisterOnSharedPreferenceChangeListener(listener)
-        }
-    }
+    override fun getRefreshToken(): Flow<String?> = dataStore.data.map { it.refreshToken }
 
     override suspend fun saveSession(accessToken: String, refreshToken: String) {
-        sharedPreferences.edit {
-            putString(ACCESS_TOKEN_KEY, accessToken)
-            putString(REFRESH_TOKEN_KEY, refreshToken)
+        dataStore.updateData { currentSession ->
+            currentSession.copy(
+                accessToken = accessToken,
+                refreshToken = refreshToken
+            )
         }
     }
 
     override suspend fun clearSession() {
-        sharedPreferences.edit {
-            remove(ACCESS_TOKEN_KEY)
-            remove(REFRESH_TOKEN_KEY)
+        dao.clearUsers()
+        dataStore.updateData {
+            SessionData()
         }
-    }
-
-    companion object {
-        private const val ACCESS_TOKEN_KEY = "access_token"
-        private const val REFRESH_TOKEN_KEY = "refresh_token"
     }
 }
