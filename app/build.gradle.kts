@@ -34,8 +34,8 @@ dependencies {
     implementation(project(":datasources:sync"))
     implementation(project(":core:ui"))
 
-    implementation(libs.androidx.navigation3.ui)
-    implementation(libs.androidx.navigation3.runtime)
+
+    implementation(libs.bundles.navigation.ui)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.activity.ktx)
 }

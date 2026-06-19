@@ -37,6 +37,7 @@ import ke.don.ma3routes.core.ui.navigation.rememberNavigationState
 import ke.don.ma3routes.core.ui.navigation.toEntries
 import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
 import ke.don.ma3routes.features.authentication.screens.LoginScreen
+import ke.don.ma3routes.navigation.NavGraph
 
 @OptIn(ExperimentalKoffeeApi::class)
 @AndroidEntryPoint
@@ -61,7 +62,12 @@ class MainActivity : ComponentActivity() {
 
                 val navigationState = rememberNavigationState(
                     startRoute = if (isLoggedIn) Ma3Screens.HomeScreen else Ma3Screens.LoginScreen,
-                    topLevelRoutes = setOf(Ma3Screens.HomeScreen, Ma3Screens.Settings)
+                    topLevelRoutes = setOf(
+                        Ma3Screens.HomeScreen,
+                        Ma3Screens.Routes,
+                        Ma3Screens.Stages,
+                        Ma3Screens.Settings
+                    )
                 )
 
                 val navigator = remember(navigationState, isLoggedIn) {
@@ -72,25 +78,11 @@ class MainActivity : ComponentActivity() {
                     )
                 }
 
-                val entryProvider = remember {
-                    entryProvider<NavKey> {
-                        entry<Ma3Screens.HomeScreen> {
-                            Text("Home Screen")
-                        }
-                        entry<Ma3Screens.LoginScreen> {
-                            LoginScreen()
-                        }
-                        entry<Ma3Screens.Settings> {
-                            Text("Profile Screen")
-                        }
-                    }
-                }
-
                 Ma3RoutesTheme {
                     KoffeeBar {
-                        NavDisplay(
-                            entries = navigationState.toEntries(entryProvider),
-                            onBack = { navigator.goBack() }
+                        NavGraph(
+                            navigator = navigator,
+                            navigationState = navigationState,
                         )
                     }
                 }
