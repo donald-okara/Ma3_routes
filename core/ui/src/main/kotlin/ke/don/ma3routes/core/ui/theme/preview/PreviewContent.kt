@@ -15,6 +15,8 @@
  */
 package ke.don.ma3routes.core.ui.theme.preview
 
+import android.content.res.Configuration
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,18 +25,37 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ke.don.ma3routes.core.domain.model.ThemeConfig
 import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
 
-@PreviewLightDark
+@Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.BINARY)
+@Preview(
+    name = "Light",
+    group = "Themes",
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    showBackground = true,
+)
+@Preview(
+    name = "Dark",
+    group = "Themes",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+)
+annotation class Ma3PreviewLightDark
+
+@Ma3PreviewLightDark
 @Composable
 fun PreviewContent(
     content: (@Composable () -> Unit)? = {
         Text("Empty Preview", modifier = Modifier.fillMaxWidth())
     },
 ) {
-    Ma3RoutesTheme {
+    val darkTheme = isSystemInDarkTheme()
+    val themeConfig = if (darkTheme) ThemeConfig.DARK else ThemeConfig.LIGHT
+    Ma3RoutesTheme(themeConfig = themeConfig) {
         Surface {
             Box(
                 contentAlignment = Alignment.Center,

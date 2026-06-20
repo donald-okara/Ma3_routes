@@ -20,7 +20,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import ke.don.ma3routes.core.ui.theme.LocalThemeProvider
+import ke.don.ma3routes.core.ui.theme.Ma3Theme
 
 /**
  * Returns the [ButtonColors] for a given [ButtonType].
@@ -29,7 +29,7 @@ import ke.don.ma3routes.core.ui.theme.LocalThemeProvider
  */
 @Composable
 fun buttonColorsFor(type: ButtonType): ButtonColors {
-    val isDark = LocalThemeProvider.current
+    val isDark = Ma3Theme.isDark
 
     return when (type) {
         ButtonType.Primary -> if (isDark) {

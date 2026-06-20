@@ -3,28 +3,20 @@ package ke.don.ma3routes.core.ui.components
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.More
-import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.automirrored.filled.SendToMobile
 import androidx.compose.material.icons.automirrored.outlined.More
 import androidx.compose.material.icons.automirrored.outlined.SendToMobile
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import ke.don.ma3routes.core.ui.components.buttons.ButtonType
-import ke.don.ma3routes.core.ui.components.icons.Ma3Icon
 import ke.don.ma3routes.core.ui.components.icons.Ma3IconButton
-import ke.don.ma3routes.core.ui.components.icons.iconButtonColorsFor
 import ke.don.ma3routes.core.ui.components.icons.neutralAlternateIconButtonColors
+import ke.don.ma3routes.core.ui.theme.preview.Ma3PreviewLightDark
 import ke.don.ma3routes.core.ui.theme.preview.PreviewContent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,7 +48,7 @@ fun Ma3TopBar(
     )
 }
 
-@PreviewLightDark
+@Ma3PreviewLightDark
 @Composable
 fun Ma3TopBarPreview(){
     PreviewContent{
@@ -70,7 +62,7 @@ fun Ma3TopBarPreview(){
                     colors = neutralAlternateIconButtonColors()
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Outlined.More,
+                        imageVector = Icons.Default.MoreVert,
                         contentDescription = null
                     )
                 }

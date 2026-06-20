@@ -15,6 +15,7 @@
  */
 package ke.don.ma3routes.core.ui.theme.preview
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -61,10 +62,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.AndroidUiModes.UI_MODE_NIGHT_YES
-import androidx.compose.ui.tooling.preview.AndroidUiModes.UI_MODE_TYPE_NORMAL
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ke.don.ma3routes.core.domain.model.ThemeConfig
 import ke.don.ma3routes.core.ui.components.buttons.ButtonType
 import ke.don.ma3routes.core.ui.components.buttons.Ma3Button
 import ke.don.ma3routes.core.ui.components.card.CardType
@@ -72,12 +73,16 @@ import ke.don.ma3routes.core.ui.components.card.Ma3Card
 import ke.don.ma3routes.core.ui.components.icons.Ma3Icon
 import ke.don.ma3routes.core.ui.components.icons.Ma3IconButton
 import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
+import ke.don.ma3routes.core.ui.theme.Ma3Theme
 
 @Composable
-fun ThemeShowcase() {
-    Ma3RoutesTheme {
+fun ThemeShowcase(
+    modifier: Modifier = Modifier,
+    themeConfig: ThemeConfig = Ma3Theme.themeConfig,
+) {
+    Ma3RoutesTheme(themeConfig = themeConfig) {
         Surface(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
             Row(
@@ -89,7 +94,9 @@ fun ThemeShowcase() {
             ) {
                 // Column 1: Colors
                 Column(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .weight(1f),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     ColorCard("Primary Container", MaterialTheme.colorScheme.primaryContainer)
@@ -172,6 +179,9 @@ fun ColorCard(title: String, color: Color) {
                     title,
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f)
                 )
                 val hex = "#" + "%06X".format(color.toArgb() and 0xFFFFFF)
                 Text(
@@ -450,14 +460,16 @@ fun ActionIconsCard() {
     }
 }
 
-@Preview(name = "Light", widthDp = 1200, heightDp = 700)
+@Preview(name = "Light Wide", widthDp = 1200, heightDp = 700)
 @Preview(
-    name = "Dark",
-    uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL,
+    name = "Dark Wide",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
     widthDp = 1200,
     heightDp = 700,
 )
 @Composable
 fun ThemeShowcasePreview() {
-    ThemeShowcase()
+    PreviewContent {
+        ThemeShowcase()
+    }
 }
