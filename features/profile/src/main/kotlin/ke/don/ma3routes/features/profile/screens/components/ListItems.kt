@@ -1,6 +1,5 @@
 package ke.don.ma3routes.features.profile.screens.components
 
-import android.graphics.pdf.models.ListItem
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,8 +9,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.AddAlert
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,11 +21,41 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import ke.don.ma3routes.core.domain.model.UserDomain
+import ke.don.ma3routes.core.ui.components.card.CardType
+import ke.don.ma3routes.core.ui.components.card.Ma3Card
+import ke.don.ma3routes.core.ui.components.profile.Ma3Profile
 import ke.don.ma3routes.core.ui.theme.preview.Ma3PreviewLightDark
 import ke.don.ma3routes.core.ui.theme.preview.PreviewContent
 
 @Composable
-internal fun ListSegment(
+fun ListSegment(
+    modifier: Modifier = Modifier,
+    items: List<@Composable () -> Unit>
+) {
+    Ma3Card(
+        type = CardType.Outlined,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items.forEachIndexed { index, item ->
+                item()
+                if (index < items.lastIndex) {
+                    HorizontalDivider(
+                        thickness = 1.dp,
+                        color = MaterialTheme.colorScheme.outlineVariant
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+internal fun HeadedColumn(
     title: String,
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
@@ -77,6 +106,74 @@ internal fun ListItem(
     }
 }
 
+@Composable
+internal fun ProfilePictureSegment(
+    modifier: Modifier = Modifier,
+    user: UserDomain
+) {
+    Ma3Card(
+        type = CardType.Outlined,
+        modifier = modifier.fillMaxWidth(),
+    ){
+        Row(
+            modifier = modifier
+                .padding(24.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Ma3Profile(
+                name = user.name ?: "Unknown",
+                url = user.avatarUrl,
+                size = 60.dp,
+            )
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
+                horizontalAlignment = Alignment.Start,
+            ) {
+                Text(
+                    text = user.name ?: "Unknown",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                )
+
+                Text(
+                    text = user.email ?: "Unknown",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
+}
+
+@Ma3PreviewLightDark
+@Composable
+fun ListSegmentPreview(){
+    PreviewContent {
+        ListSegment(
+            items = listOf(
+                { PlaceholderComponent() },
+                { PlaceholderComponent() },
+                { PlaceholderComponent() },
+            )
+        )
+    }
+}
+
+@Ma3PreviewLightDark
+@Composable
+fun ProfilePictureSegmentPreview(){
+    PreviewContent {
+        ProfilePictureSegment(
+            user = UserDomain(
+                id= "",
+                name = "Lisa F. Temecula"
+            )
+        )
+    }
+}
+
 @Ma3PreviewLightDark
 @Composable
 fun ListItemPreview(){
@@ -92,9 +189,9 @@ fun ListItemPreview(){
 
 @Ma3PreviewLightDark
 @Composable
-fun ListSegmentPreview(){
+fun HeadedColumnPreview(){
     PreviewContent {
-        ListSegment(
+        HeadedColumn(
             title = "Preview"
         ){
             PlaceholderComponent()

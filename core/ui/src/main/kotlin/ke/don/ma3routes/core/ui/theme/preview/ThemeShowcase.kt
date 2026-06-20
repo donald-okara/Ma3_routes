@@ -73,6 +73,7 @@ import ke.don.ma3routes.core.ui.components.card.CardType
 import ke.don.ma3routes.core.ui.components.card.Ma3Card
 import ke.don.ma3routes.core.ui.components.icons.Ma3Icon
 import ke.don.ma3routes.core.ui.components.icons.Ma3IconButton
+import ke.don.ma3routes.core.ui.components.profile.Ma3Profile
 import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
 import ke.don.ma3routes.core.ui.theme.Ma3Theme
 
@@ -272,6 +273,10 @@ fun RowScope.CardsShowcase() {
                 type = type,
             )
         }
+
+        Ma3Profile(
+            name = "Lisa F. Temecula",
+        )
     }
 }
 
