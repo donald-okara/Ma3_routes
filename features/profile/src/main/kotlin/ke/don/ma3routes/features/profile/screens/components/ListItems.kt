@@ -1,6 +1,7 @@
 package ke.don.ma3routes.features.profile.screens.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -80,12 +81,21 @@ internal fun ListItem(
     icon: ImageVector,
     title: String,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     bottomComponent: (@Composable () -> Unit)? = null
 ) {
+    val clickableModifier = if (onClick != null) {
+        Modifier.clickable(onClick = onClick)
+    } else {
+        Modifier
+    }
+
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .then(clickableModifier)
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.Start,
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
