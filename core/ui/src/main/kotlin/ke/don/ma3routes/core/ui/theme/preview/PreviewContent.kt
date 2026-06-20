@@ -49,11 +49,11 @@ annotation class Ma3PreviewLightDark
 @Ma3PreviewLightDark
 @Composable
 fun PreviewContent(
+    darkTheme: Boolean = isSystemInDarkTheme(),
     content: (@Composable () -> Unit)? = {
         Text("Empty Preview", modifier = Modifier.fillMaxWidth())
     },
 ) {
-    val darkTheme = isSystemInDarkTheme()
     val themeConfig = if (darkTheme) ThemeConfig.DARK else ThemeConfig.LIGHT
     Ma3RoutesTheme(themeConfig = themeConfig) {
         Surface {
