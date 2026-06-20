@@ -15,20 +15,19 @@
  */
 package ke.don.ma3routes.core.ui.theme
 
-import android.app.Activity
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.platform.LocalContext
+import ke.don.ma3routes.core.domain.model.ThemeConfig
+import java.util.Calendar
 
-val LocalThemeProvider = staticCompositionLocalOf { false }
+val LocalThemeConfig = compositionLocalOf { ThemeConfig.DYNAMIC }
+val LocalDarkTheme = staticCompositionLocalOf { false }
 
 private val DarkColorScheme = darkColorScheme(
     primary = PrimaryDark,
@@ -85,20 +84,42 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun Ma3RoutesTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colorScheme = when {
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+fun Ma3RoutesTheme(
+    themeConfig: ThemeConfig = ThemeConfig.DYNAMIC,
+    content: @Composable () -> Unit
+) {
+    val darkTheme = when (themeConfig) {
+        ThemeConfig.LIGHT -> false
+        ThemeConfig.DARK -> true
+        ThemeConfig.DYNAMIC -> {
+            val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+            hour !in 6..17 // Dark between 6 PM and 6 AM
+        }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        shapes = Shapes,
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+
+    CompositionLocalProvider(
+        LocalThemeConfig provides themeConfig,
+        LocalDarkTheme provides darkTheme
     ) {
-        CompositionLocalProvider(
-            LocalThemeProvider provides darkTheme,
-            content = content,
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
         )
     }
+}
+
+object Ma3Theme {
+    val themeConfig: ThemeConfig
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalThemeConfig.current
+
+    val isDark: Boolean
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalDarkTheme.current
 }

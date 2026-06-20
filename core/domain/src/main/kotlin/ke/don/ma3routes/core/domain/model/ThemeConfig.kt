@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.feature)
-}
+package ke.don.ma3routes.core.domain.model
 
-android {
-    namespace = "ke.don.ma3routes.features.preferences"
-}
-
-dependencies {
-    implementation(project(":core:domain"))
-    implementation(libs.androidx.datastore.preferences)
+enum class ThemeConfig {
+    LIGHT,
+    DARK,
+    DYNAMIC,
 }

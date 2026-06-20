@@ -21,7 +21,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import ke.don.ma3routes.core.ui.components.buttons.ButtonType
-import ke.don.ma3routes.core.ui.theme.LocalThemeProvider
+import ke.don.ma3routes.core.ui.theme.LocalThemeConfig
+import ke.don.ma3routes.core.ui.theme.Ma3Theme
 
 /**
  * Returns the [IconButtonColors] for a given [ke.don.ma3routes.core.ui.components.buttons.ButtonType].
@@ -30,25 +31,27 @@ import ke.don.ma3routes.core.ui.theme.LocalThemeProvider
  */
 @Composable
 fun iconButtonColorsFor(type: ButtonType): IconButtonColors {
-    val isDark = LocalThemeProvider.current
+    val isDark = Ma3Theme.isDark
 
     return when (type) {
-        ButtonType.Primary -> if (isDark) {
-            IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(
-                    alpha = 0.12f,
-                ),
-                disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
-            )
-        } else {
-            IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
-                disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
-            )
+        ButtonType.Primary -> {
+            if (isDark) {
+                IconButtonDefaults.iconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    disabledContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(
+                        alpha = 0.12f,
+                    ),
+                    disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                )
+            } else {
+                IconButtonDefaults.iconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
+                    disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                )
+            }
         }
 
         ButtonType.Secondary -> IconButtonDefaults.iconButtonColors(
@@ -112,4 +115,16 @@ fun iconButtonColorsFor(type: ButtonType): IconButtonColors {
             disabledContentColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.38f),
         )
     }
+}
+
+@Composable
+fun neutralAlternateIconButtonColors(): IconButtonColors {
+    return IconButtonDefaults.iconButtonColors(
+        containerColor = Color.Transparent,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        disabledContainerColor = Color.Transparent,
+        disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(
+            alpha = 0.38f
+        )
+    )
 }

@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    alias(libs.plugins.ma3.android.feature)
-}
+package ke.don.ma3routes.core.domain.repository
 
-android {
-    namespace = "ke.don.ma3routes.features.preferences"
-}
+import ke.don.ma3routes.core.domain.model.ThemeConfig
+import kotlinx.coroutines.flow.Flow
 
-dependencies {
-    implementation(project(":core:domain"))
-    implementation(libs.androidx.datastore.preferences)
+interface UserDataRepository {
+    val themeConfig: Flow<ThemeConfig>
+
+    suspend fun setThemeConfig(themeConfig: ThemeConfig)
 }

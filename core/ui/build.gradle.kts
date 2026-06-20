@@ -25,6 +25,7 @@ android {
 
 dependencies {
     implementation(project(":core:resources"))
+    implementation(project(":core:domain"))
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.kotlinx.serialization.json)
