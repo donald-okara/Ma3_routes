@@ -1,5 +1,8 @@
 package ke.don.ma3routes.features.profile.screens
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,17 +25,26 @@ import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.OfflinePin
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ke.don.ma3routes.core.domain.model.ThemeConfig
 import ke.don.ma3routes.core.domain.model.UserDomain
+import ke.don.ma3routes.core.resources.R
 import ke.don.ma3routes.core.ui.components.Ma3TopBar
 import ke.don.ma3routes.core.ui.components.buttons.ButtonType
 import ke.don.ma3routes.core.ui.components.buttons.Ma3Button
+import ke.don.ma3routes.core.ui.components.buttons.buttonColorsFor
 import ke.don.ma3routes.core.ui.components.switches.Ma3EnumSwitch
 import ke.don.ma3routes.core.ui.theme.preview.Ma3PreviewLightDark
 import ke.don.ma3routes.core.ui.theme.preview.PreviewContent
@@ -55,7 +67,6 @@ fun SettingsScreenComponent(
     onThemeChange: (ThemeConfig) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -93,11 +104,23 @@ fun SettingsScreenComponent(
                                     icon = Icons.Outlined.Palette,
                                     title = "Theme",
                                 ){
-                                    Ma3EnumSwitch(
-                                        value = theme,
-                                        onValueChange = onThemeChange,
-                                        modifier = Modifier.fillMaxWidth()
-                                    )
+                                    Column(
+                                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        Ma3EnumSwitch(
+                                            value = theme,
+                                            onValueChange = onThemeChange,
+                                            modifier = Modifier.fillMaxWidth()
+                                        )
+
+                                        AnimatedVisibility(visible = theme == ThemeConfig.DYNAMIC) {
+                                            Text(
+                                                text = stringResource(R.string.settings_dynamic_theme_description),
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         )
@@ -158,7 +181,14 @@ fun SettingsScreenComponent(
 
                 Ma3Button(
                     onClick = {},
-                    type = ButtonType.Danger,
+                    type = ButtonType.Outlined,
+                    colors = buttonColorsFor(ButtonType.Outlined).copy(
+                        contentColor = MaterialTheme.colorScheme.error,
+                    ),
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.error,
+                    ),
                     modifier = Modifier.fillMaxWidth()
                 ){
                     Icon(
@@ -172,7 +202,9 @@ fun SettingsScreenComponent(
                 }
 
                 Text(
-                    text = "Ma3 routes Version 1.0"
+                    text = "Ma3 routes Version 1.0",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -182,14 +214,27 @@ fun SettingsScreenComponent(
 @Ma3PreviewLightDark
 @Composable
 fun SettingsScreenPreview(){
-    PreviewContent {
+    val isSystemDark = isSystemInDarkTheme()
+
+    var themeConfig by remember {
+        mutableStateOf(
+            if (isSystemDark)
+                ThemeConfig.DARK
+            else ThemeConfig.LIGHT
+        )
+    }
+    PreviewContent(
+        darkTheme = themeConfig == ThemeConfig.DARK
+    ) {
         SettingsScreenComponent(
             user = UserDomain(
                 id= "",
                 name = "Lisa F. Temecula"
             ),
-            theme = ThemeConfig.LIGHT,
-            onThemeChange = {}
+            theme = themeConfig,
+            onThemeChange = {
+                themeConfig = it
+            }
         )
     }
 }

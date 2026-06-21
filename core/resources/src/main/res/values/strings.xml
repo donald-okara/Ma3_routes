@@ -16,4 +16,7 @@
     <string name="auth_success_logged_in">Successfully logged in</string>
     <string name="auth_error">Error</string>
     <string name="auth_unknown_error">Unknown error</string>
+
+    <!-- Settings Strings -->
+    <string name="settings_dynamic_theme_description">Theme will follow your system clock. Light theme during the day, dark theme at night</string>
 </resources>

@@ -30,7 +30,7 @@ import ke.don.ma3routes.core.ui.theme.preview.Ma3PreviewLightDark
 import ke.don.ma3routes.core.ui.theme.preview.PreviewContent
 
 @Composable
-fun ListSegment(
+internal fun ListSegment(
     modifier: Modifier = Modifier,
     items: List<@Composable () -> Unit>
 ) {

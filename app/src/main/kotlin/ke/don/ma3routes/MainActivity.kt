@@ -20,7 +20,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -58,7 +57,8 @@ class MainActivity : ComponentActivity() {
             val uiState by viewModel.uiState.collectAsState()
 
             if (uiState is MainUiState.Success) {
-                val isLoggedIn = (uiState as MainUiState.Success).isLoggedIn
+                val successState = uiState as MainUiState.Success
+                val isLoggedIn = successState.isLoggedIn
 
                 val navigationState = rememberNavigationState(
                     startRoute = if (isLoggedIn) Ma3Screens.HomeScreen else Ma3Screens.LoginScreen,
@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
                     )
                 }
 
-                Ma3RoutesTheme {
+                Ma3RoutesTheme(themeConfig = successState.themeConfig) {
                     KoffeeBar {
                         NavGraph(
                             navigator = navigator,

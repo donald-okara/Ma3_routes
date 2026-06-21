@@ -88,22 +88,19 @@ Refer to the official documentation to complete specific development tasks:
 3. Expose this class through your custom theme with a static reference, don't
    use `CompositionLocals` here as it's not required.
 
-
    ```kotlin
    @Immutable
-   class JetsnackTheme(
-       // other Design system properties
-   ) {
-       companion object {
-           val colors: CustomThemingWithStyles.JetsnackColors
-               @Composable @ReadOnlyComposable
-               get() = LocalJetsnackTheme.current.colors
-           // ...
+class JetsnackTheme {
+    companion object {
+        val colors: CustomThemingWithStyles.JetsnackColors
+            @Composable @ReadOnlyComposable
+            get() = LocalJetsnackTheme.current.colors
+        // ...
 
-           // add helper static reference
-           val styles: ComponentStyles = ComponentStyles
-       }
-   }
+        // add helper static reference
+        val styles: ComponentStyles = ComponentStyles
+    }
+}
    ```
 
    <br />

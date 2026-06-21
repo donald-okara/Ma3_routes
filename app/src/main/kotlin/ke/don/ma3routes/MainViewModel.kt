@@ -18,29 +18,39 @@ package ke.don.ma3routes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ke.don.ma3routes.core.domain.model.ThemeConfig
+import ke.don.ma3routes.core.domain.repository.UserDataRepository
 import ke.don.ma3routes.core.domain.session.SessionManager
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    sessionManager: SessionManager
+    sessionManager: SessionManager,
+    userDataRepository: UserDataRepository
 ) : ViewModel() {
-    val uiState: StateFlow<MainUiState> = sessionManager.getAccessToken()
-        .map { token ->
-            MainUiState.Success(isLoggedIn = token != null)
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = MainUiState.Loading
+    val uiState: StateFlow<MainUiState> = combine(
+        sessionManager.getAccessToken(),
+        userDataRepository.themeConfig
+    ) { token, themeConfig ->
+        MainUiState.Success(
+            isLoggedIn = token != null,
+            themeConfig = themeConfig
         )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = MainUiState.Loading
+    )
 }
 
 sealed interface MainUiState {
     data object Loading : MainUiState
-    data class Success(val isLoggedIn: Boolean) : MainUiState
+    data class Success(
+        val isLoggedIn: Boolean,
+        val themeConfig: ThemeConfig
+    ) : MainUiState
 }

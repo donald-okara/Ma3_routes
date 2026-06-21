@@ -5,4 +5,5 @@ fun String.getInitials(): String {
         .filter { it.isNotBlank() }
         .mapNotNull { it.firstOrNull()?.uppercaseChar() }
         .joinToString("")
+        .take(3)
 }
