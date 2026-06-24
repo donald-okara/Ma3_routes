@@ -1,5 +1,6 @@
 package ke.don.ma3routes.core.ui.navigation
 
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.navigation3.runtime.NavKey
 
 /**
@@ -16,14 +17,20 @@ class Navigator(
     private val isLoggedIn: () -> Boolean,
 ) {
     fun navigate(route: NavKey) {
-        if (route is ConditionalNavKey && route.requiresLogin && !isLoggedIn()) {
-            val loginKey = onNavigateToRestrictedKey(route)
-            state.backStacks[state.topLevelRoute]?.add(loginKey)
-        } else if (route in state.backStacks.keys) {
-            // This is a top level route, just switch to it.
-            state.topLevelRoute = route
-        } else {
-            state.backStacks[state.topLevelRoute]?.add(route)
+        when (route) {
+            is ConditionalNavKey if route.requiresLogin && !isLoggedIn() -> {
+                val loginKey = onNavigateToRestrictedKey(route)
+                state.backStacks[state.topLevelRoute]?.add(loginKey)
+            }
+
+            in state.backStacks.keys -> {
+                // This is a top level route, just switch to it.
+                state.topLevelRoute = route
+            }
+
+            else -> {
+                state.backStacks[state.topLevelRoute]?.add(route)
+            }
         }
     }
 
@@ -38,6 +45,10 @@ class Navigator(
             state.topLevelRoute = state.startRoute
         }
     }
+}
+
+val LocalNavigator = staticCompositionLocalOf<Navigator> {
+    error("No Navigator provided")
 }
 
 /**

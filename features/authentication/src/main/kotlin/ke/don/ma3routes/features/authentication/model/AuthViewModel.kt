@@ -10,7 +10,6 @@ import ke.don.ma3routes.core.domain.repository.AuthRepository
 import ke.don.ma3routes.core.domain.util.ResultStatus
 import ke.don.ma3routes.core.domain.util.isLoading
 import ke.don.ma3routes.core.resources.Resources
-import ke.don.ma3routes.datasources.remote.auth.GoogleSigninClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -22,7 +21,6 @@ import javax.inject.Inject
 class AuthViewModel
 @Inject constructor(
     private val repository: AuthRepository,
-    private val googleSigninClient: GoogleSigninClient,
 ): ViewModel() {
     private val _authState = MutableStateFlow(AuthUiState())
     val authState = _authState.asStateFlow()
@@ -33,23 +31,18 @@ class AuthViewModel
                 status = ResultStatus.Loading
             )
         }
-        googleSigninClient.getCredentialIdToken(context)
-            .onSuccess { idToken ->
-                repository.signInWithGoogle(idToken)
-                    .onSuccess {
-                        _authState.update { state ->
-                            state.copy(
-                                status = ResultStatus.Success
-                            )
-                        }
-                        Koffee.show(
-                            title = context.getString(Resources.Strings.authSuccess),
-                            description = context.getString(Resources.Strings.authSuccessLoggedIn),
-                            type = ToastType.Success
-                        )
-                    }.onFailure { e ->
-                        handleError(e, context)
-                    }
+        repository.login(context)
+            .onSuccess {
+                _authState.update { state ->
+                    state.copy(
+                        status = ResultStatus.Success
+                    )
+                }
+                Koffee.show(
+                    title = context.getString(Resources.Strings.authSuccess),
+                    description = context.getString(Resources.Strings.authSuccessLoggedIn),
+                    type = ToastType.Success
+                )
             }.onFailure { e ->
                 handleError(e, context)
             }

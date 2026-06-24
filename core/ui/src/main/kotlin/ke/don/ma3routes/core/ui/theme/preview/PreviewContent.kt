@@ -23,11 +23,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ke.don.ma3routes.core.domain.model.ThemeConfig
+import ke.don.ma3routes.core.ui.navigation.LocalNavigator
+import ke.don.ma3routes.core.ui.navigation.Ma3Screens
+import ke.don.ma3routes.core.ui.navigation.Navigator
+import ke.don.ma3routes.core.ui.navigation.rememberNavigationState
 import ke.don.ma3routes.core.ui.theme.Ma3RoutesTheme
 
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
@@ -55,14 +61,32 @@ fun PreviewContent(
     },
 ) {
     val themeConfig = if (darkTheme) ThemeConfig.DARK else ThemeConfig.LIGHT
+    val navigationState = rememberNavigationState(
+        startRoute = Ma3Screens.HomeScreen,
+        topLevelRoutes = setOf(
+            Ma3Screens.HomeScreen,
+            Ma3Screens.Routes,
+            Ma3Screens.Stages,
+            Ma3Screens.Settings,
+        )
+    )
+    val navigator = remember(navigationState) {
+        Navigator(
+            state = navigationState,
+            onNavigateToRestrictedKey = { Ma3Screens.LoginScreen },
+            isLoggedIn = { true },
+        )
+    }
     Ma3RoutesTheme(themeConfig = themeConfig) {
-        Surface {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .padding(8.dp),
-            ) {
-                content?.invoke()
+        CompositionLocalProvider(LocalNavigator provides navigator) {
+            Surface {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .padding(8.dp),
+                ) {
+                    content?.invoke()
+                }
             }
         }
     }

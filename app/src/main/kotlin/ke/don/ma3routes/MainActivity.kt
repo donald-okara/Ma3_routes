@@ -20,16 +20,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import dagger.hilt.android.AndroidEntryPoint
 import ke.don.koffee.annotations.ExperimentalKoffeeApi
 import ke.don.koffee.ui.KoffeeBar
+import ke.don.ma3routes.core.ui.navigation.LocalNavigator
 import ke.don.ma3routes.core.ui.navigation.Ma3Screens
 import ke.don.ma3routes.core.ui.navigation.Navigator
 import ke.don.ma3routes.core.ui.navigation.rememberNavigationState
@@ -66,7 +67,7 @@ class MainActivity : ComponentActivity() {
                         Ma3Screens.HomeScreen,
                         Ma3Screens.Routes,
                         Ma3Screens.Stages,
-                        Ma3Screens.Settings
+                        Ma3Screens.Settings,
                     )
                 )
 
@@ -74,16 +75,18 @@ class MainActivity : ComponentActivity() {
                     Navigator(
                         state = navigationState,
                         onNavigateToRestrictedKey = { Ma3Screens.LoginScreen },
-                        isLoggedIn = { isLoggedIn }
+                        isLoggedIn = { isLoggedIn },
                     )
                 }
 
                 Ma3RoutesTheme(themeConfig = successState.themeConfig) {
-                    KoffeeBar {
-                        NavGraph(
-                            navigator = navigator,
-                            navigationState = navigationState,
-                        )
+                    CompositionLocalProvider(LocalNavigator provides navigator) {
+                        KoffeeBar {
+                            NavGraph(
+                                navigator = navigator,
+                                navigationState = navigationState,
+                            )
+                        }
                     }
                 }
             }
