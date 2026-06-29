@@ -43,30 +43,23 @@ interface Ma3ApiService {
     ): Session
 
     @GET("routes")
-    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getRoutes(): List<RouteDto>
 
     @GET("routes/{id}")
-    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getRoute(@Path("id") id: String): RouteDto
 
     @GET("stages")
-    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getStages(): List<StageDto>
 
     @GET("stages/{id}")
-    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getStage(@Path("id") id: String): StageDto
 
     @GET("route-destinations")
-    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getRouteDestinations(): List<RouteDestinationDto>
 
     @GET("stage-routes")
-    @ApplyInterceptors(InterceptorType.API_KEY)
     suspend fun getStageRoutes(): List<StageRouteDto>
 
     @POST("corrections")
-    @ApplyInterceptors(InterceptorType.API_KEY, InterceptorType.JSON_CONTENT_TYPE)
     suspend fun submitCorrection(@Body correction: CorrectionDto): CorrectionDto
 }
