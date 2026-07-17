@@ -1,0 +1,106 @@
+{
+    "baselines": {
+        ":core:resources": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862570421
+            }
+        ],
+        ":core:analytics": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862579006
+            }
+        ],
+        ":core:domain": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862579499
+            }
+        ],
+        ":datasources:remote": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862598511
+            }
+        ],
+        ":core:ui": [
+            {
+                "score": 17.559525,
+                "timestamp": 1783862616111
+            }
+        ],
+        ":datasources:local": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862617740
+            }
+        ],
+        ":datasources:controller": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862648233
+            }
+        ],
+        ":datasources:sync": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862648242
+            }
+        ],
+        ":features:authentication": [
+            {
+                "score": 98.333336,
+                "timestamp": 1783862648267
+            }
+        ],
+        ":features:preferences": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862648380
+            }
+        ],
+        ":features:profile": [
+            {
+                "score": 98.333336,
+                "timestamp": 1783862648385
+            }
+        ],
+        ":features:routes:details": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862648390
+            }
+        ],
+        ":features:routes:list": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862648786
+            }
+        ],
+        ":features:stages:list": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862648792
+            }
+        ],
+        ":features:stages:navigation": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862649109
+            }
+        ],
+        ":aggregate": [
+            {
+                "score": 13.389137,
+                "timestamp": 1783862660813
+            }
+        ],
+        ":app": [
+            {
+                "score": 0.0,
+                "timestamp": 1783862660815
+            }
+        ]
+    }
+}
